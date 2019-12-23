@@ -8,7 +8,7 @@ class User {
     this.projectId_ = projectId;
   }
 
-  async getUser(username, options) {
+  async get(username, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`)
@@ -16,7 +16,7 @@ class User {
     return response;
   }
   
-  async getUsers(options) {
+  async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`)
@@ -24,7 +24,7 @@ class User {
     return response;
   }
   
-  async deleteUser(username, options) {
+  async delete(username, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
       method: "DELETE"
@@ -32,7 +32,7 @@ class User {
     return true;
   }
   
-  async updateUser(username, body, options) {
+  async update(username, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
@@ -44,7 +44,7 @@ class User {
     return response;
   }
   
-  async createUser(body, options) {
+  async create(body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`, {

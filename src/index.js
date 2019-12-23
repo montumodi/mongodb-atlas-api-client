@@ -10,11 +10,11 @@ function getMongodbAtlasApiClient(options) {
   const user = new User(client, options.baseUrl, options.projectId);
   return {
     "user": {
-      "getUser" : user.getUser.bind(user),
-      "getUsers": user.getUsers.bind(user),
-      "deleteUser": user.deleteUser.bind(user),
-      "createUser": user.createUser.bind(user),
-      "updateUser": user.updateUser.bind(user)
+      "get" : user.get.bind(user),
+      "getAll": user.getAll.bind(user),
+      "delete": user.delete.bind(user),
+      "create": user.create.bind(user),
+      "update": user.update.bind(user)
     }
   }
 }

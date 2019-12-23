@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/montumodi/mongodb-atlas-api-client/issues"
   },
-  "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme"
+  "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "digest-fetch": "^1.0.9",
+    "node-fetch": "^2.6.0",
+    "qs": "^6.9.1"
+  }
 }

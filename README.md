@@ -49,8 +49,6 @@ const response = await user.update("someUserName", body, options); // update use
 
 ### API
 
-<a src="https://docs.atlas.mongodb.com/reference/api/database-users-get-single-user/">get</a>
-
 ### user.get(username, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of user name passed.
 
@@ -59,4 +57,20 @@ Function - Returns the details of user name passed.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | name of the user for which details needs to be retrieved |
-| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which needs to be passed to atlas api |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/database-users-get-single-user/
+
+### user.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the users. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/database-users-get-all-users/
+
+
+

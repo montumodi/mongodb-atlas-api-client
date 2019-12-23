@@ -72,5 +72,42 @@ Function - Returns all the users. Pagination can be controlled via options objec
 
 More details - https://docs.atlas.mongodb.com/reference/api/database-users-get-all-users/
 
+### user.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the user as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for user which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/database-users-create-a-user/
+
+### user.update(username, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the user for the username passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | name of the user for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for user which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/database-users-update-a-user/
+
+### user.delete(username, [options]) ⇒ <code>Promise</code>
+Function - Deletes the user name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | name of the user which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/database-users-delete-a-user/
+
 
 

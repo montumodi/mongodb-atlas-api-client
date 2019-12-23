@@ -1,0 +1,26 @@
+{
+  "name": "mongodb-atlas-api-client",
+  "version": "1.0.0",
+  "description": "A mongodb atlas api client built using nodejs.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montumodi/mongodb-atlas-api-client.git"
+  },
+  "keywords": [
+    "mongodb",
+    "atlas",
+    "api",
+    "client",
+    "driver"
+  ],
+  "author": "Ashish Modi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/montumodi/mongodb-atlas-api-client/issues"
+  },
+  "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme"
+}

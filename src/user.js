@@ -26,10 +26,9 @@ class User {
   
   async deleteUser(username, options) {
     const queryString = qs.stringify(options);
-    const response =
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
-        method: "DELETE"
-      });
+    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
+      method: "DELETE"
+    });
     return true;
   }
   

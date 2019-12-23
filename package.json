@@ -1,10 +1,20 @@
 {
   "name": "mongodb-atlas-api-client",
   "version": "1.1.0",
-  "description": "A mongodb atlas api client built using nodejs.",
+  "description": "A mongodb atlas api client for nodejs.",
   "main": "src/index.js",
   "scripts": {
-    "test": "test"
+    "cover": "istanbul cover ./node_modules/lab/bin/lab ./test --leaks",
+    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test": "./node_modules/@hapi/lab/bin/lab ./test/ -v -S --assert @hapi/code",
+    "lint": "./node_modules/.bin/eslint ./src --fix",
+    "travis": "npm run test",
+    "premajor": "npm run test",
+    "major": "npm version major -m \"published to npm as v%s\" && git push --follow-tags && npm publish",
+    "preminor": "npm run test",
+    "minor": "npm version minor -m \"published to npm as v%s\" && git push --follow-tags && npm publish",
+    "prepatch": "npm run test",
+    "patch": "npm version patch -m \"published to npm as v%s\" && git push --follow-tags && npm publish"
   },
   "repository": {
     "type": "git",
@@ -24,6 +34,12 @@
     "url": "https://github.com/montumodi/mongodb-atlas-api-client/issues"
   },
   "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
+  "devDependencies": {
+    "@hapi/code": "^7.0.0",
+    "coveralls": "^3.0.6",
+    "istanbul": "^0.4.5",
+    "@hapi/lab": "^21.0.0"
+  },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "digest-fetch": "^1.0.9",

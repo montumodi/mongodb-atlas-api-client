@@ -68,7 +68,7 @@ class Cluster {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/restartPrimaries?${queryString}`, {
-        method: "PATCH"
+        method: "POST"
       })
       ).json();
     return response;

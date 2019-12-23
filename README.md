@@ -22,7 +22,7 @@ The basic syntax is:
 
 ```js
 const getClient = require("mongodb-atlas-api-client");
-const {user} = getClient({
+const {user, cluster} = getClient({
   "publicKey": "some public key",
   "privateKey": "some private key",
   "baseUrl": "https://cloud.mongodb.com/api/atlas/v1.0",
@@ -36,7 +36,7 @@ const options = {
 }
 
 const response = await user.getAll(options); // get All users
-const response = await user.get("someUserName"); // get single user
+const response = await cluster.get("someClusterName"); // get single cluster
 const response = await user.delete("someUserName", options); // delete single user
 const response = await user.create(body, options); // create user
 const response = await user.update("someUserName", body, options); // update user
@@ -108,6 +108,103 @@ Function - Deletes the user name passed.
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/database-users-delete-a-user/
+
+### cluster.get(clustername, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of cluster name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-get-one/
+
+### cluster.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the clusters. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-get-all/
+
+### cluster.getAdvanceConfiguration(clustername, [options]) ⇒ <code>Promise</code>
+Function - Returns the advance configuration of cluster name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which advance configuration needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-get-advanced-configuration-options/
+
+### cluster.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the cluster as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-create-one/
+
+### cluster.update(clustername, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the cluster for the clustername passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-modify-one/
+
+### cluster.updateAdvanceConfiguration(clustername, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the advance configuration of cluster for the clustername passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which advance configuration needs to be updated |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-modify-advanced-configuration-options/
+
+### cluster.testPrimaryFailOver(clustername, [options]) ⇒ <code>Promise</code>
+Function - Tests failure of primary replica set member.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which failure needs to be tested |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-test-failover/
+
+### cluster.delete(clustername, [options]) ⇒ <code>Promise</code>
+Function - Deletes the cluster name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/clusters-delete-one/
 
 
 

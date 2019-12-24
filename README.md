@@ -206,5 +206,65 @@ Function - Deletes the cluster name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/clusters-delete-one/
 
+### customDbRole.get(rolename, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of role name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| rolename | <code>String</code> |  | name of the role for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-get-single-role/
+
+### customDbRole.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the users. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-get-all-roles/
+
+### customDbRole.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the role as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for role which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-create-a-role/
+
+### customDbRole.update(rolename, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the role for the rolename passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| rolename | <code>String</code> |  | name of the role for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for role which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-update-a-role/
+
+### customDbRole.delete(rolename, [options]) ⇒ <code>Promise</code>
+Function - Deletes the role name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| rolename | <code>String</code> |  | name of the role which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-delete-a-role/
+
 
 

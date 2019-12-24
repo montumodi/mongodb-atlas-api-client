@@ -219,7 +219,7 @@ Function - Returns the details of role name passed.
 More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-get-single-role/
 
 ### customDbRole.getAll([options]) ⇒ <code>Promise</code>
-Function - Returns all the users. Pagination can be controlled via options object.
+Function - Returns all the roles. Pagination can be controlled via options object.
 
 **Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
 

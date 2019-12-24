@@ -4,7 +4,7 @@
   "description": "A mongodb atlas api client for nodejs.",
   "main": "src/index.js",
   "scripts": {
-    "cover": "istanbul cover ./node_modules/lab/bin/lab ./test --leaks",
+    "cover": "istanbul cover ./node_modules/@hapi/lab/bin/lab ./test --leaks",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test": "./node_modules/@hapi/lab/bin/lab ./test/ -v -S --assert @hapi/code",
     "lint": "./node_modules/.bin/eslint ./src --fix",
@@ -36,9 +36,10 @@
   "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
   "devDependencies": {
     "@hapi/code": "^7.0.0",
+    "@hapi/lab": "^21.0.0",
     "coveralls": "^3.0.6",
     "istanbul": "^0.4.5",
-    "@hapi/lab": "^21.0.0"
+    "nock": "^11.7.0"
   },
   "dependencies": {
     "crypto-js": "^3.1.9-1",

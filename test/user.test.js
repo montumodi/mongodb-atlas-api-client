@@ -20,4 +20,5 @@ describe("Mongo Atlas Api Client", () => {
     expect(client.user.delete).to.be.function();
     expect(client.user.update).to.be.function();
   });
+
 });

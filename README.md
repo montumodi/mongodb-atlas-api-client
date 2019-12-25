@@ -266,5 +266,64 @@ Function - Deletes the role name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-delete-a-role/
 
+### projectWhitelist.get(whitelistentry, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of whitelistentry name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| whitelistentry | <code>String</code> |  | name of the whitelistentry for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/whitelist-get-one-entry/
+
+### projectWhitelist.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the whitelistentries. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/whitelist-get-all/
+
+### projectWhitelist.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the whitelistentry as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for whitelistentry which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/whitelist-add-one/
+
+### projectWhitelist.update(body, [options]) ⇒ <code>Promise</code>
+Function - Updates the whitelistentry passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for whitelistentry which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/whitelist-update-one/
+
+### projectWhitelist.delete(whitelistentry, [options]) ⇒ <code>Promise</code>
+Function - Deletes the whitelistentry name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| whitelistentry | <code>String</code> |  | name of the whitelistentry which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/whitelist-delete-one/
+
 
 

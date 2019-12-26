@@ -2,6 +2,7 @@ const User = require("./user");
 const Cluster = require("./cluster");
 const CustomDbRole = require("./customDbRole");
 const ProjectWhitelist = require("./projectWhitelist");
+const Project = require("./project");
 const DigestFetch = require("digest-fetch");
 
 function getMongodbAtlasApiClient(options) {
@@ -14,6 +15,7 @@ function getMongodbAtlasApiClient(options) {
   const cluster = new Cluster(client, options.baseUrl, options.projectId);
   const customDbRole = new CustomDbRole(client, options.baseUrl, options.projectId);
   const projectWhitelist = new ProjectWhitelist(client, options.baseUrl, options.projectId);
+  const project = new Project(client, options.baseUrl);
 
   return {
     "user": {
@@ -22,6 +24,16 @@ function getMongodbAtlasApiClient(options) {
       "delete": user.delete.bind(user),
       "create": user.create.bind(user),
       "update": user.update.bind(user)
+    },
+    "project": {
+      "getById" : project.getById.bind(project),
+      "getByName" : project.getByName.bind(project),
+      "getTeamsByProjectId" : project.getTeamsByProjectId.bind(project),
+      "getAll": project.getAll.bind(project),
+      "delete": project.delete.bind(project),
+      "removeUserFromProject": project.removeUserFromProject.bind(project),
+      "create": project.create.bind(project),
+      "assignTeams": project.assignTeams.bind(project)
     },
     "projectWhitelist": {
       "get" : projectWhitelist.get.bind(projectWhitelist),

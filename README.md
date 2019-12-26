@@ -325,5 +325,102 @@ Function - Deletes the whitelistentry name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/whitelist-delete-one/
 
+### project.getById(projectId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of project id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| projectId | <code>String</code> |  | project id for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-get-one/
+
+### project.getByName(projectName, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of project name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| projectId | <code>String</code> |  | project name for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-get-one-by-name/
+
+### project.getTeamsByProjectId(projectId, [options]) ⇒ <code>Promise</code>
+Function - Returns the teams of project id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| projectId | <code>String</code> |  | project id for which teams needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-get-teams/
+
+### project.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the projects. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-get-all/
+
+### project.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the project as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for project which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-create-one/
+
+### project.assignTeams(projectId, body, [options]) ⇒ <code>Promise</code>
+Function - Assigns the teams for the projectId passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| projectId | <code>String</code> |  | Id of the project for which teams needs to be associated |
+| body | <code>Object</code> |  | Body which has details for teams which needs to be associated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-add-team/
+
+### project.delete(projectId, [options]) ⇒ <code>Promise</code>
+Function - Deletes the project id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| projectId | <code>String</code> |  | Id of the project which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-delete-one/
+
+### project.removeUserFromProject(projectId, userId, [options]) ⇒ <code>Promise</code>
+Function - Removes the user id passed from the project.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| userId | <code>String</code> |  | Id of the user which needs to be removed from project |
+| projectId | <code>String</code> |  | Id of the project |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/project-remove-user/
+
 
 

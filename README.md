@@ -422,5 +422,77 @@ Function - Removes the user id passed from the project.
 
 More details - https://docs.atlas.mongodb.com/reference/api/project-remove-user/
 
+### organization.getById(organizationId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of organization id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | org§ id for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-get-one/
+
+### organization.getAllUsersForOrganization(organizationId, [options]) ⇒ <code>Promise</code>
+Function - Returns all the users for organization id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | organization id for which users needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-users-get-all-users/
+
+### organization.getAllProjectsForOrganization(organizationId, [options]) ⇒ <code>Promise</code>
+Function - Returns all the projects for organization id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | organization id for which projects needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-get-all-projects/
+
+### organization.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the organizations. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-get-all/
+
+### organization.rename(organizationId, body, [options]) ⇒ <code>Promise</code>
+Function - Renames the organization
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | Id of the organization for which needs to be renamed |
+| body | <code>Object</code> |  | Body which has details for organization which needs to be renamed |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-rename/
+
+### organization.delete(organizationId, [options]) ⇒ <code>Promise</code>
+Function - Deletes the project id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | Id of the organization which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-delete-one/
+
 
 

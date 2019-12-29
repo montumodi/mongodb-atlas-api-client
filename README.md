@@ -494,5 +494,66 @@ Function - Deletes the project id passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/organization-delete-one/
 
+### atlasUser.getById(userId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of user id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| userId | <code>String</code> |  | Id of the user for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/user-get-by-id/
+
+### atlasUser.getByName(username, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of user name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | Name of the user for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/user-get-one-by-name/
+
+### atlasUser.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the users. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/user-get-all/
+
+### atlasUser.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the atlas user as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for atlas user which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/user-create/
+
+### atlasUser.update(userId, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the user for the userId passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| userId | <code>String</code> |  | Id of the user for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for user which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/user-update/
+
+
 
 

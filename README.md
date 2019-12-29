@@ -1,4 +1,4 @@
-# Mongodb atlas api client
+# Mongodb atlas api client for NODEJS
 
 A mongdb atlas api client for nodejs.
 

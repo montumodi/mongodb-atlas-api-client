@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
   "devDependencies": {
-    "@hapi/code": "^7.0.0",
+    "@hapi/code": "^8.0.0",
     "@hapi/lab": "^22.0.1",
     "coveralls": "^3.0.6",
     "istanbul": "^0.4.5",

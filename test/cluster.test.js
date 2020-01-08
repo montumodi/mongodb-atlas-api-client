@@ -15,7 +15,7 @@ const client = getClient({
 
 describe("Mongo Atlas Api Client - Cluster", () => {
 
-  describe("When atlasUser is exported from index", () => {
+  describe("When cluster is exported from index", () => {
     it("should export cluster functions", async () => {
       expect(client.cluster.get).to.be.function();
       expect(client.cluster.getAll).to.be.function();

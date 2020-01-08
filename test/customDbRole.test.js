@@ -16,7 +16,7 @@ const client = getClient({
 describe("Mongo Atlas Api Client - Custom Db Role", () => {
 
   describe("When customDbRole is exported from index", () => {
-    it("should export atlasUser functions", async () => {
+    it("should export customDbRole functions", async () => {
       expect(client.customDbRole.get).to.be.function();
       expect(client.customDbRole.getAll).to.be.function();
       expect(client.customDbRole.create).to.be.function();

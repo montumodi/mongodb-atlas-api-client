@@ -51,16 +51,16 @@ const response = await user.update("someUserName", body, options); // update use
 
 Following entities are currently supported
 
-- [User](##User)
-- [Cluster](##Cluster)
-- [CustomDbRole](##CustomDbRole)
-- [ProjectWhitelist](##ProjectWhitelist)
-- [Project](##Project)
-- [Organization](##Organization)
-- [AtlasUser](##AtlasUser)
-- [Event](##Event)
+- [User](#User)
+- [Cluster](#Cluster)
+- [CustomDbRole](#CustomDbRole)
+- [ProjectWhitelist](#ProjectWhitelist)
+- [Project](#Project)
+- [Organization](#Organization)
+- [AtlasUser](#AtlasUser)
+- [Event](#Event)
 
-## User
+### User
 
 ### user.get(username, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of user name passed.
@@ -122,7 +122,7 @@ Function - Deletes the user name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/database-users-delete-a-user/
 
-## Cluster
+### Cluster
 
 ### cluster.get(clustername, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of cluster name passed.
@@ -221,7 +221,7 @@ Function - Deletes the cluster name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/clusters-delete-one/
 
-## CustomDbRole
+### CustomDbRole
 
 ### customDbRole.get(rolename, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of role name passed.
@@ -283,7 +283,7 @@ Function - Deletes the role name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-delete-a-role/
 
-## ProjectWhitelist
+### ProjectWhitelist
 
 ### projectWhitelist.get(whitelistentry, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of whitelistentry name passed.
@@ -344,7 +344,7 @@ Function - Deletes the whitelistentry name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/whitelist-delete-one/
 
-## Project
+### Project
 
 ### project.getById(projectId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of project id passed.
@@ -443,7 +443,7 @@ Function - Removes the user id passed from the project.
 
 More details - https://docs.atlas.mongodb.com/reference/api/project-remove-user/
 
-## Organization
+### Organization
 
 ### organization.getById(organizationId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of organization id passed.
@@ -517,7 +517,7 @@ Function - Deletes the project id passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/organization-delete-one/
 
-## AtlasUser
+### AtlasUser
 
 ### atlasUser.getById(userId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of user id passed.
@@ -579,7 +579,7 @@ Function - Updates the user for the userId passed. It only updates the propertie
 
 More details - https://docs.atlas.mongodb.com/reference/api/user-update/
 
-## Event
+### Event
 
 ### event.get(eventId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of event id passed.

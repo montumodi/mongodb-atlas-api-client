@@ -53,11 +53,11 @@ Following entities are currently supported
 
 - [User](#user)
 - [Cluster](#cluster)
-- [CustomDbRole](#customDbRole)
-- [ProjectWhitelist](#projectWhitelist)
+- [CustomDbRole](#customdbrole)
+- [ProjectWhitelist](#projectwhitelist)
 - [Project](#project)
 - [Organization](#organization)
-- [AtlasUser](#atlasUser)
+- [AtlasUser](#atlasuser)
 - [Event](#event)
 
 ### User

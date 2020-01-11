@@ -5,6 +5,7 @@ const ProjectWhitelist = require("./projectWhitelist");
 const Project = require("./project");
 const Organization = require("./organization");
 const AtlasUser = require("./atlasUser");
+const Event = require("./event");
 const DigestFetch = require("digest-fetch");
 
 function getMongodbAtlasApiClient(options) {
@@ -20,6 +21,7 @@ function getMongodbAtlasApiClient(options) {
   const project = new Project(client, options.baseUrl);
   const organization = new Organization(client, options.baseUrl);
   const atlasUser = new AtlasUser(client, options.baseUrl, options.projectId);
+  const event = new Event(client, options.baseUrl, options.projectId);
 
   return {
     "user": {
@@ -77,6 +79,12 @@ function getMongodbAtlasApiClient(options) {
       "update": cluster.update.bind(cluster),
       "updateAdvanceConfiguration": cluster.updateAdvanceConfiguration.bind(cluster),
       "testPrimaryFailOver": cluster.testPrimaryFailOver.bind(cluster)
+    },
+    "event": {
+      "get": event.get.bind(event),
+      "getAll": event.getAll.bind(event),
+      "getByOrganizationId": event.getByOrganizationId.bind(event),
+      "getAllByOrganizationId": event.getAllByOrganizationId.bind(event)
     }
   }
 }

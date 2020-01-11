@@ -49,6 +49,19 @@ const response = await user.update("someUserName", body, options); // update use
 
 ### API
 
+Following entities are currently supported
+
+- [User](#User)
+- [Cluster](#Cluster)
+- [CustomDbRole](#CustomDbRole)
+- [ProjectWhitelist](#ProjectWhitelist)
+- [Project](#Project)
+- [Organization](#Organization)
+- [AtlasUser](#AtlasUser)
+- [Event](#Event)
+
+## User
+
 ### user.get(username, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of user name passed.
 
@@ -108,6 +121,8 @@ Function - Deletes the user name passed.
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/database-users-delete-a-user/
+
+## Cluster
 
 ### cluster.get(clustername, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of cluster name passed.
@@ -206,6 +221,8 @@ Function - Deletes the cluster name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/clusters-delete-one/
 
+## CustomDbRole
+
 ### customDbRole.get(rolename, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of role name passed.
 
@@ -266,6 +283,8 @@ Function - Deletes the role name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/custom-roles-delete-a-role/
 
+## ProjectWhitelist
+
 ### projectWhitelist.get(whitelistentry, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of whitelistentry name passed.
 
@@ -324,6 +343,8 @@ Function - Deletes the whitelistentry name passed.
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/whitelist-delete-one/
+
+## Project
 
 ### project.getById(projectId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of project id passed.
@@ -422,6 +443,8 @@ Function - Removes the user id passed from the project.
 
 More details - https://docs.atlas.mongodb.com/reference/api/project-remove-user/
 
+## Organization
+
 ### organization.getById(organizationId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of organization id passed.
 
@@ -494,6 +517,8 @@ Function - Deletes the project id passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/organization-delete-one/
 
+## AtlasUser
+
 ### atlasUser.getById(userId, [options]) ⇒ <code>Promise</code>
 Function - Returns the details of user id passed.
 
@@ -554,6 +579,54 @@ Function - Updates the user for the userId passed. It only updates the propertie
 
 More details - https://docs.atlas.mongodb.com/reference/api/user-update/
 
+## Event
 
+### event.get(eventId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of event id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| eventId | <code>String</code> |  | id of the event for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/events-projects-get-one/
+
+### event.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the events. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/events-projects-get-all/
+
+### event.getByOrganizationId(organizationId, eventId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of event id passed for organization id.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | id of the organization for which details needs to be retrieved |
+| eventId | <code>String</code> |  | id of the event for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/events-orgs-get-one/
+
+### event.getAllByOrganizationId(organizationId, [options]) ⇒ <code>Promise</code>
+Function - Returns all the events. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | id of the organization for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/events-orgs-get-all/
 
 

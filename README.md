@@ -51,14 +51,14 @@ const response = await user.update("someUserName", body, options); // update use
 
 Following entities are currently supported
 
-- [User](#User)
-- [Cluster](#Cluster)
-- [CustomDbRole](#CustomDbRole)
-- [ProjectWhitelist](#ProjectWhitelist)
-- [Project](#Project)
-- [Organization](#Organization)
-- [AtlasUser](#AtlasUser)
-- [Event](#Event)
+- [User](##User)
+- [Cluster](##Cluster)
+- [CustomDbRole](##CustomDbRole)
+- [ProjectWhitelist](##ProjectWhitelist)
+- [Project](##Project)
+- [Organization](##Organization)
+- [AtlasUser](##AtlasUser)
+- [Event](##Event)
 
 ## User
 

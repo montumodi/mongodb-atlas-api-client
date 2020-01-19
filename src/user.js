@@ -12,47 +12,47 @@ class User {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async delete(username, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
-      method: "DELETE"
+      "method": "DELETE"
     });
     return true;
   }
-  
+
   async update(username, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "PATCH",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async create(body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 }

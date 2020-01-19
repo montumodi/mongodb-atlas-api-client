@@ -12,7 +12,7 @@ class Cluster {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -20,35 +20,35 @@ class Cluster {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/processArgs?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async delete(clustername, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`, {
-      method: "DELETE"
+      "method": "DELETE"
     });
     return true;
   }
-  
+
   async update(clustername, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "PATCH",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 
@@ -56,11 +56,11 @@ class Cluster {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/processArgs?${queryString}`, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "PATCH",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 
@@ -68,21 +68,21 @@ class Cluster {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/restartPrimaries?${queryString}`, {
-        method: "POST"
+        "method": "POST"
       })
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async create(body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 }

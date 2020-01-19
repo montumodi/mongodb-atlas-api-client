@@ -11,7 +11,7 @@ class Project {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -19,7 +19,7 @@ class Project {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/byName/${projectName}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -27,22 +27,22 @@ class Project {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/teams?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async delete(projectId, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}?${queryString}`, {
-      method: "DELETE"
+      "method": "DELETE"
     });
     return true;
   }
@@ -50,32 +50,32 @@ class Project {
   async removeUserFromProject(projectId, userId, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/users/${userId}?${queryString}`, {
-      method: "DELETE"
+      "method": "DELETE"
     });
     return true;
   }
-  
+
   async assignTeams(projectId, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/teams?${queryString}`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async create(body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups?${queryString}`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 }

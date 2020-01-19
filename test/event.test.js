@@ -49,7 +49,7 @@ describe("Mongo Atlas Api Client - Event", () => {
   describe("When getByOrganizationId is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .get(`/orgs/myOrgId/events/myeventId?key1=value1&key2=value2`)
+        .get("/orgs/myOrgId/events/myeventId?key1=value1&key2=value2")
         .reply(200, {"event": "name"});
       const result = await client.event.getByOrganizationId("myOrgId", "myeventId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"event": "name"});
@@ -60,7 +60,7 @@ describe("Mongo Atlas Api Client - Event", () => {
   describe("When getAllByOrganizationId is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .get(`/orgs/myOrgId/events?key1=value1&key2=value2`)
+        .get("/orgs/myOrgId/events?key1=value1&key2=value2")
         .reply(200, [{"event": "name"}]);
       const result = await client.event.getAllByOrganizationId("myOrgId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"event": "name"}]);

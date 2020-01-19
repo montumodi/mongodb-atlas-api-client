@@ -12,15 +12,15 @@ class Event {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events/${eventId}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -28,18 +28,18 @@ class Event {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events/${eventId}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAllByOrganizationId(organizationId, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
 }
 
 module.exports = Event;

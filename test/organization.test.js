@@ -73,7 +73,7 @@ describe("Mongo Atlas Api Client - Organization", () => {
   describe("When getAllProjectsForOrganization is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .get(`/orgs/orgId/groups?key1=value1&key2=value2`)
+        .get("/orgs/orgId/groups?key1=value1&key2=value2")
         .reply(200, [{"organization": "name"}]);
       const result = await client.organization.getAllProjectsForOrganization("orgId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"organization": "name"}]);

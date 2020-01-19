@@ -25,31 +25,31 @@ function getMongodbAtlasApiClient(options) {
 
   return {
     "user": {
-      "get" : user.get.bind(user),
+      "get": user.get.bind(user),
       "getAll": user.getAll.bind(user),
       "delete": user.delete.bind(user),
       "create": user.create.bind(user),
       "update": user.update.bind(user)
     },
     "atlasUser": {
-      "getById" : atlasUser.getById.bind(atlasUser),
-      "getByName" : atlasUser.getByName.bind(atlasUser),
+      "getById": atlasUser.getById.bind(atlasUser),
+      "getByName": atlasUser.getByName.bind(atlasUser),
       "getAll": atlasUser.getAll.bind(atlasUser),
       "create": atlasUser.create.bind(atlasUser),
       "update": atlasUser.update.bind(atlasUser)
     },
     "organization": {
-      "getById" : organization.getById.bind(organization),
-      "getAllUsersForOrganization" : organization.getAllUsersForOrganization.bind(organization),
-      "getAllProjectsForOrganization" : organization.getAllProjectsForOrganization.bind(organization),
+      "getById": organization.getById.bind(organization),
+      "getAllUsersForOrganization": organization.getAllUsersForOrganization.bind(organization),
+      "getAllProjectsForOrganization": organization.getAllProjectsForOrganization.bind(organization),
       "getAll": organization.getAll.bind(organization),
       "delete": organization.delete.bind(organization),
       "rename": organization.rename.bind(organization)
     },
     "project": {
-      "getById" : project.getById.bind(project),
-      "getByName" : project.getByName.bind(project),
-      "getTeamsByProjectId" : project.getTeamsByProjectId.bind(project),
+      "getById": project.getById.bind(project),
+      "getByName": project.getByName.bind(project),
+      "getTeamsByProjectId": project.getTeamsByProjectId.bind(project),
       "getAll": project.getAll.bind(project),
       "delete": project.delete.bind(project),
       "removeUserFromProject": project.removeUserFromProject.bind(project),
@@ -57,21 +57,21 @@ function getMongodbAtlasApiClient(options) {
       "assignTeams": project.assignTeams.bind(project)
     },
     "projectWhitelist": {
-      "get" : projectWhitelist.get.bind(projectWhitelist),
+      "get": projectWhitelist.get.bind(projectWhitelist),
       "getAll": projectWhitelist.getAll.bind(projectWhitelist),
       "delete": projectWhitelist.delete.bind(projectWhitelist),
       "create": projectWhitelist.create.bind(projectWhitelist),
       "update": projectWhitelist.update.bind(projectWhitelist)
     },
     "customDbRole": {
-      "get" : customDbRole.get.bind(customDbRole),
+      "get": customDbRole.get.bind(customDbRole),
       "getAll": customDbRole.getAll.bind(customDbRole),
       "delete": customDbRole.delete.bind(customDbRole),
       "create": customDbRole.create.bind(customDbRole),
       "update": customDbRole.update.bind(customDbRole)
     },
     "cluster": {
-      "get" : cluster.get.bind(cluster),
+      "get": cluster.get.bind(cluster),
       "getAdvanceConfiguration": cluster.getAdvanceConfiguration.bind(cluster),
       "getAll": cluster.getAll.bind(cluster),
       "delete": cluster.delete.bind(cluster),
@@ -86,9 +86,8 @@ function getMongodbAtlasApiClient(options) {
       "getByOrganizationId": event.getByOrganizationId.bind(event),
       "getAllByOrganizationId": event.getAllByOrganizationId.bind(event)
     }
-  }
+  };
 }
 
 module.exports = getMongodbAtlasApiClient;
-
 

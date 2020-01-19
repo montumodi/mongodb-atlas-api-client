@@ -12,7 +12,7 @@ class AtlasUser {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/byName/${username}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -20,40 +20,40 @@ class AtlasUser {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/${userId}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/users?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
-  
+
   async update(userId, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/${userId}?${queryString}`, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "PATCH",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async create(body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users?${queryString}`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 }

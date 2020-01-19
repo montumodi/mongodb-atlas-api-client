@@ -61,7 +61,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .patch(`/users/someId?key1=value1&key2=value2`)
+        .patch("/users/someId?key1=value1&key2=value2")
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.update("someId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
@@ -72,7 +72,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .post(`/users?key1=value1&key2=value2`)
+        .post("/users?key1=value1&key2=value2")
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);

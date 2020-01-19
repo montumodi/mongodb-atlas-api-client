@@ -2,7 +2,7 @@ const qs = require("qs");
 
 class Organization {
 
-  constructor(client, baseUrl, projectId) {
+  constructor(client, baseUrl) {
     this.client_ = client;
     this.baseUrl_ = baseUrl;
   }
@@ -11,7 +11,7 @@ class Organization {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -19,7 +19,7 @@ class Organization {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/users?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
 
@@ -27,35 +27,35 @@ class Organization {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/groups?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async getAll(options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs?${queryString}`)
-      ).json();
+    ).json();
     return response;
   }
-  
+
   async delete(organizationId, options) {
     const queryString = qs.stringify(options);
     await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
-      method: "DELETE"
+      "method": "DELETE"
     });
     return true;
   }
-  
+
   async rename(organizationId, body, options) {
     const queryString = qs.stringify(options);
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
+        "method": "PATCH",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
       })
-      ).json();
+    ).json();
     return response;
   }
 }

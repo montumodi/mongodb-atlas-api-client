@@ -61,6 +61,7 @@ Following entities are currently supported
 - [Organization](#organization)
 - [AtlasUser](#atlasuser)
 - [Event](#event)
+- [Alert](#alert)
 
 ### User
 
@@ -630,5 +631,43 @@ Function - Returns all the events. Pagination can be controlled via options obje
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/events-orgs-get-all/
+
+### Alert
+
+### alert.get(alertId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of alert id passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| alertId | <code>String</code> |  | id of the alert for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/alerts-get-alert/
+
+### alert.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the alerts. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/alerts-get-all-alerts/
+
+### event.acknowledge(alertId, [options]) ⇒ <code>Promise</code>
+Function - Acknowledge or unacknowledge an alert
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| alertId | <code>String</code> |  | id of the alert which needs to be acknowledged |
+| body | <code>Object</code> |  | Body which has details for alert which needs to be acknowledged |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/alerts-acknowledge-alert/
 
 

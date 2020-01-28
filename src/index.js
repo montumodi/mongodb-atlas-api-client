@@ -6,6 +6,7 @@ const Project = require("./project");
 const Organization = require("./organization");
 const AtlasUser = require("./atlasUser");
 const Event = require("./event");
+const Alert = require("./alert");
 const DigestFetch = require("digest-fetch");
 
 function getMongodbAtlasApiClient(options) {
@@ -22,6 +23,7 @@ function getMongodbAtlasApiClient(options) {
   const organization = new Organization(client, options.baseUrl);
   const atlasUser = new AtlasUser(client, options.baseUrl, options.projectId);
   const event = new Event(client, options.baseUrl, options.projectId);
+  const alert = new Alert(client, options.baseUrl, options.projectId);
 
   return {
     "user": {
@@ -30,6 +32,11 @@ function getMongodbAtlasApiClient(options) {
       "delete": user.delete.bind(user),
       "create": user.create.bind(user),
       "update": user.update.bind(user)
+    },
+    "alert": {
+      "get": alert.get.bind(alert),
+      "getAll": alert.getAll.bind(alert),
+      "acknowledge": alert.acknowledge.bind(alert)
     },
     "atlasUser": {
       "getById": atlasUser.getById.bind(atlasUser),

@@ -8,6 +8,16 @@ import {Project} from './project';
 import {ProjectWhitelist} from './projectWhitelist';
 import {User} from './user';
 
+export * from './alert'
+export * from './atlasUser';
+export * from './cluster';
+export * from './customDbRole';
+export * from './event';
+export * from './organization';
+export * from './project';
+export * from './projectWhitelist';
+export * from './user';
+
 export interface KeyValuePairDocument {
     key: string;
     value: string;

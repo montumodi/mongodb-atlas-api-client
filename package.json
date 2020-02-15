@@ -46,7 +46,7 @@
     "nock": "^11.8.2"
   },
   "dependencies": {
-    "crypto-js": "^3.2.0",
+    "crypto-js": "^4.0.0",
     "digest-fetch": "^1.0.9",
     "node-fetch": "^2.6.0",
     "qs": "^6.9.1"

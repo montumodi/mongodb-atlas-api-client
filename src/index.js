@@ -9,6 +9,16 @@ const Event = require("./event");
 const Alert = require("./alert");
 const DigestFetch = require("digest-fetch");
 
+function getFunctions(instance) {
+  const functions = {};
+  Object.getOwnPropertyNames(Object.getPrototypeOf(instance))
+    .filter(name => name !== "constructor")
+    .forEach(functionName => {
+      functions[functionName] = instance[functionName].bind(instance);
+    });
+  return functions;
+}
+
 function getMongodbAtlasApiClient(options) {
   const client = new DigestFetch(
     options.publicKey,
@@ -25,75 +35,18 @@ function getMongodbAtlasApiClient(options) {
   const event = new Event(client, options.baseUrl, options.projectId);
   const alert = new Alert(client, options.baseUrl, options.projectId);
 
-  return {
-    "user": {
-      "get": user.get.bind(user),
-      "getAll": user.getAll.bind(user),
-      "delete": user.delete.bind(user),
-      "create": user.create.bind(user),
-      "update": user.update.bind(user)
-    },
-    "alert": {
-      "get": alert.get.bind(alert),
-      "getAll": alert.getAll.bind(alert),
-      "acknowledge": alert.acknowledge.bind(alert)
-    },
-    "atlasUser": {
-      "getById": atlasUser.getById.bind(atlasUser),
-      "getByName": atlasUser.getByName.bind(atlasUser),
-      "getAll": atlasUser.getAll.bind(atlasUser),
-      "create": atlasUser.create.bind(atlasUser),
-      "update": atlasUser.update.bind(atlasUser)
-    },
-    "organization": {
-      "getById": organization.getById.bind(organization),
-      "getAllUsersForOrganization": organization.getAllUsersForOrganization.bind(organization),
-      "getAllProjectsForOrganization": organization.getAllProjectsForOrganization.bind(organization),
-      "getAll": organization.getAll.bind(organization),
-      "delete": organization.delete.bind(organization),
-      "rename": organization.rename.bind(organization)
-    },
-    "project": {
-      "getById": project.getById.bind(project),
-      "getByName": project.getByName.bind(project),
-      "getTeamsByProjectId": project.getTeamsByProjectId.bind(project),
-      "getAll": project.getAll.bind(project),
-      "delete": project.delete.bind(project),
-      "removeUserFromProject": project.removeUserFromProject.bind(project),
-      "create": project.create.bind(project),
-      "assignTeams": project.assignTeams.bind(project)
-    },
-    "projectWhitelist": {
-      "get": projectWhitelist.get.bind(projectWhitelist),
-      "getAll": projectWhitelist.getAll.bind(projectWhitelist),
-      "delete": projectWhitelist.delete.bind(projectWhitelist),
-      "create": projectWhitelist.create.bind(projectWhitelist),
-      "update": projectWhitelist.update.bind(projectWhitelist)
-    },
-    "customDbRole": {
-      "get": customDbRole.get.bind(customDbRole),
-      "getAll": customDbRole.getAll.bind(customDbRole),
-      "delete": customDbRole.delete.bind(customDbRole),
-      "create": customDbRole.create.bind(customDbRole),
-      "update": customDbRole.update.bind(customDbRole)
-    },
-    "cluster": {
-      "get": cluster.get.bind(cluster),
-      "getAdvanceConfiguration": cluster.getAdvanceConfiguration.bind(cluster),
-      "getAll": cluster.getAll.bind(cluster),
-      "delete": cluster.delete.bind(cluster),
-      "create": cluster.create.bind(cluster),
-      "update": cluster.update.bind(cluster),
-      "updateAdvanceConfiguration": cluster.updateAdvanceConfiguration.bind(cluster),
-      "testPrimaryFailOver": cluster.testPrimaryFailOver.bind(cluster)
-    },
-    "event": {
-      "get": event.get.bind(event),
-      "getAll": event.getAll.bind(event),
-      "getByOrganizationId": event.getByOrganizationId.bind(event),
-      "getAllByOrganizationId": event.getAllByOrganizationId.bind(event)
-    }
-  };
+  const functions = {};
+  functions.user = getFunctions(user);
+  functions.cluster = getFunctions(cluster);
+  functions.customDbRole = getFunctions(customDbRole);
+  functions.projectWhitelist = getFunctions(projectWhitelist);
+  functions.project = getFunctions(project);
+  functions.organization = getFunctions(organization);
+  functions.atlasUser = getFunctions(atlasUser);
+  functions.event = getFunctions(event);
+  functions.alert = getFunctions(alert);
+
+  return functions;
 }
 
 module.exports = getMongodbAtlasApiClient;

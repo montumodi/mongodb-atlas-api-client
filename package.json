@@ -40,10 +40,10 @@
   "devDependencies": {
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
-    "coveralls": "^3.0.9",
+    "coveralls": "^3.1.0",
     "eslint": "^6.8.0",
     "istanbul": "^0.4.5",
-    "nock": "^12.0.0"
+    "nock": "^12.0.3"
   },
   "dependencies": {
     "crypto-js": "^4.0.0",

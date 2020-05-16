@@ -1,0 +1,36 @@
+name: Node.js Package
+
+on:
+  release:
+    types: [created,updated]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm install  
+      - run: npm test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: git config --global user.email "montumodi@gmail.com"
+      - run: git config --global user.name "Ashish Modi"
+      - run: git remote set-url --push origin https://montumodi:$GITHUB_TOKEN@github.com/${{github.repository}}
+        env:	
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: npm version minor
+      - run: git push origin HEAD:master
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

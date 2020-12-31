@@ -4,13 +4,11 @@ const nock = require("nock");
 const getClient = require("../src");
 
 const baseUrl = "http://dummyBaseUrl";
-const projectId = "dummyProjectId";
 
 const client = getClient({
   "publicKey": "dummuyPublicKey",
   "privateKey": "dummyPrivateKey",
-  "baseUrl": baseUrl,
-  "projectId": projectId
+  "baseUrl": baseUrl
 });
 
 describe("Mongo Atlas Api Client - Project", () => {

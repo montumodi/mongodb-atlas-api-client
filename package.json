@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "digest-fetch": "^1.1.5",
+    "digest-fetch": "^1.1.6",
     "node-fetch": "^2.6.1",
     "qs": "^6.9.4"
   }

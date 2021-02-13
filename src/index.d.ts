@@ -76,7 +76,7 @@ export interface AtlasClientConfig {
     /**
      * Target Project ID in Atlas account
      */
-    projectId: String;
+    projectId?: String;
 }
 
 export interface AtlasClientOptions {

@@ -2,6 +2,7 @@ const User = require("./user");
 const Cluster = require("./cluster");
 const CustomDbRole = require("./customDbRole");
 const ProjectWhitelist = require("./projectWhitelist");
+const ProjectAccesslist = require("./projectAccesslist");
 const Project = require("./project");
 const Organization = require("./organization");
 const AtlasUser = require("./atlasUser");
@@ -29,6 +30,7 @@ function getMongodbAtlasApiClient(options) {
   const cluster = new Cluster(client, options.baseUrl, options.projectId);
   const customDbRole = new CustomDbRole(client, options.baseUrl, options.projectId);
   const projectWhitelist = new ProjectWhitelist(client, options.baseUrl, options.projectId);
+  const projectAccesslist = new ProjectAccesslist(client, options.baseUrl, options.projectId);
   const project = new Project(client, options.baseUrl);
   const organization = new Organization(client, options.baseUrl);
   const atlasUser = new AtlasUser(client, options.baseUrl, options.projectId);
@@ -40,6 +42,7 @@ function getMongodbAtlasApiClient(options) {
   functions.cluster = getFunctions(cluster);
   functions.customDbRole = getFunctions(customDbRole);
   functions.projectWhitelist = getFunctions(projectWhitelist);
+  functions.projectAccesslist = getFunctions(projectAccesslist);
   functions.project = getFunctions(project);
   functions.organization = getFunctions(organization);
   functions.atlasUser = getFunctions(atlasUser);

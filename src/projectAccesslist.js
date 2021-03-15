@@ -11,14 +11,14 @@ class ProjectAccesslist {
   async get(accesslistentry, options) {
     const queryString = qs.stringify(options);
     return (
-        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`)
     ).json();
   }
 
   async getAll(options) {
     const queryString = qs.stringify(options);
     return (
-        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`)
     ).json();
   }
 
@@ -33,22 +33,22 @@ class ProjectAccesslist {
   async update(body, options) {
     const queryString = qs.stringify(options);
     return (
-        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
-          "method": "POST",
-          "body": JSON.stringify(body),
-          "headers": {"Content-Type": "application/json"}
-        })
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
+      })
     ).json();
   }
 
   async create(body, options) {
     const queryString = qs.stringify(options);
     return (
-        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
-          "method": "POST",
-          "body": JSON.stringify(body),
-          "headers": {"Content-Type": "application/json"}
-        })
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
+      })
     ).json();
   }
 }

@@ -57,6 +57,7 @@ Following entities are currently supported
 - [Cluster](#cluster)
 - [CustomDbRole](#customdbrole)
 - [ProjectWhitelist](#projectwhitelist)
+- [ProjectAccesslist](#projectaccesslist)
 - [Project](#project)
 - [Organization](#organization)
 - [AtlasUser](#atlasuser)

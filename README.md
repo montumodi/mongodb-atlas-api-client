@@ -347,6 +347,67 @@ Function - Deletes the whitelistentry name passed.
 
 More details - https://docs.atlas.mongodb.com/reference/api/whitelist-delete-one/
 
+### ProjectAccesslist
+
+### projectAccesslist.get(accesslistentry, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of accesslistentry name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| accesslistentry | <code>String</code> |  | name of the accesslistentry for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/ip-access-list/get-one-access-list-entry/
+
+### projectAccesslist.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the accesslistentries. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/ip-access-list/get-all-access-list-entries/
+
+### projectAccesslist.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the accesslistentry as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for accesslistentry which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/ip-access-list/add-entries-to-access-list/
+
+### projectAccesslist.update(body, [options]) ⇒ <code>Promise</code>
+Function - Updates the accesslistentry passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for accesslistentry which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/ip-access-list/add-entries-to-access-list/
+
+### projectAccesslist.delete(accesslistentry, [options]) ⇒ <code>Promise</code>
+Function - Deletes the accesslistentry name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| accesslistentry | <code>String</code> |  | name of the accesslistentry which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/ip-access-list/delete-one-access-list-entry/
+
 ### Project
 
 ### project.getById(projectId, [options]) ⇒ <code>Promise</code>

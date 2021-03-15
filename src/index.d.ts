@@ -6,6 +6,7 @@ import {Event} from './event';
 import {Organization} from './organization';
 import {Project} from './project';
 import {ProjectWhitelist} from './projectWhitelist';
+import {ProjectAccesslist} from './projectAccesslist';
 import {User} from './user';
 
 export * from './alert'
@@ -16,6 +17,7 @@ export * from './event';
 export * from './organization';
 export * from './project';
 export * from './projectWhitelist';
+export * from './projectAccesslist';
 export * from './user';
 
 export interface KeyValuePairDocument {
@@ -55,6 +57,7 @@ export interface AtlasClient {
     organization: Organization;
     project: Project;
     projectWhitelist: ProjectWhitelist;
+    projectAccesslist: ProjectAccesslist;
     customDbRole: CustomDbRole;
     cluster: Cluster;
     event: Event;

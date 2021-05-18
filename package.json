@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "cover": "istanbul cover ./node_modules/@hapi/lab/bin/lab ./test --leaks",
-    "pretest": "eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
+    "pretest": "npm run depcheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
+    "depcheck": "depcheck --ignores node-fetch",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test": "./node_modules/@hapi/lab/bin/lab ./test/ -v -S --assert @hapi/code --threshold 100 -p 1",
     "lint": "./node_modules/.bin/eslint ./src --fix",
@@ -41,12 +42,12 @@
     "@hapi/code": "^8.0.2",
     "@hapi/lab": "^24.1.0",
     "coveralls": "^3.1.0",
+    "depcheck": "^1.4.1",
     "eslint": "^7.20.0",
     "istanbul": "^0.4.5",
     "nock": "^13.0.7"
   },
   "dependencies": {
-    "crypto-js": "^4.0.0",
     "digest-fetch": "^1.1.6",
     "node-fetch": "^2.6.1",
     "qs": "^6.9.6"

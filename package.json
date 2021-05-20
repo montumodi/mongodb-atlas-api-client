@@ -48,7 +48,7 @@
     "nock": "^13.0.7"
   },
   "dependencies": {
-    "digest-fetch": "^1.1.6",
+    "digest-fetch": "^1.2.0",
     "node-fetch": "^2.6.1",
     "qs": "^6.9.6"
   }

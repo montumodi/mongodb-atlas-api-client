@@ -8,6 +8,7 @@ const Organization = require("./organization");
 const AtlasUser = require("./atlasUser");
 const Event = require("./event");
 const Alert = require("./alert");
+const DataLake = require("./dataLake");
 const DigestFetch = require("digest-fetch");
 
 function getFunctions(instance) {
@@ -36,6 +37,7 @@ function getMongodbAtlasApiClient(options) {
   const atlasUser = new AtlasUser(client, options.baseUrl, options.projectId);
   const event = new Event(client, options.baseUrl, options.projectId);
   const alert = new Alert(client, options.baseUrl, options.projectId);
+  const dataLake = new DataLake(client, options.baseUrl, options.projectId);
 
   const functions = {};
   functions.user = getFunctions(user);
@@ -48,6 +50,7 @@ function getMongodbAtlasApiClient(options) {
   functions.atlasUser = getFunctions(atlasUser);
   functions.event = getFunctions(event);
   functions.alert = getFunctions(alert);
+  functions.dataLake = getFunctions(dataLake);
 
   return functions;
 }

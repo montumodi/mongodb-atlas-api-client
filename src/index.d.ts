@@ -8,6 +8,7 @@ import {Project} from './project';
 import {ProjectWhitelist} from './projectWhitelist';
 import {ProjectAccesslist} from './projectAccesslist';
 import {User} from './user';
+import {DataLake} from './dataLake';
 
 export * from './alert'
 export * from './atlasUser';
@@ -19,6 +20,7 @@ export * from './project';
 export * from './projectWhitelist';
 export * from './projectAccesslist';
 export * from './user';
+export * from './dataLake'
 
 export interface KeyValuePairDocument {
     key: string;
@@ -61,6 +63,7 @@ export interface AtlasClient {
     customDbRole: CustomDbRole;
     cluster: Cluster;
     event: Event;
+    dataLake: DataLake
 }
 
 export interface AtlasClientConfig {

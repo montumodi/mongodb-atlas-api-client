@@ -63,6 +63,7 @@ Following entities are currently supported
 - [AtlasUser](#atlasuser)
 - [Event](#event)
 - [Alert](#alert)
+- [DataLake](#datalake)
 
 ### User
 
@@ -731,5 +732,79 @@ Function - Acknowledge or unacknowledge an alert
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/alerts-acknowledge-alert/
+
+### DataLake
+
+### dataLake.get(dataLakeName, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of dataLake name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| dataLakeName | <code>String</code> |  | name of the dataLake for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-get-one-tenant/
+
+### dataLake.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the dataLakes. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-get-all-tenants/
+
+### dataLake.getLogsStream(dataLakeName, [options]) ⇒ <code>Promise</code>
+Function - Returns the dataLake logs stream.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| dataLakeName | <code>String</code> |  | name of the dataLake for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-download-query-logs/
+
+### dataLake.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the dataLake as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for dataLake which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-create-one-tenant/
+
+### dataLake.update(dataLakeName, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the dataLake for the username passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| dataLakeName | <code>String</code> |  | name of the dataLake for which details needs to be retrieved |
+| body | <code>Object</code> |  | Body which has details for dataLake which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-update-one-tenant/
+
+### dataLake.delete(dataLakeName, [options]) ⇒ <code>Promise</code>
+Function - Deletes the dataLake name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| dataLakeName | <code>String</code> |  | name of the datalake which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-delete-one-tenant/
 
 

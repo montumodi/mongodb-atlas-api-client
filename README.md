@@ -807,4 +807,54 @@ Function - Deletes the dataLake name passed.
 
 More details - https://docs.mongodb.com/datalake/reference/api/dataLakes-delete-one-tenant/
 
+### CloudProviderAccess
+
+### cloudProviderAccess.getAll([options]) ⇒ <code>Promise</code>
+Function - Returns all the cloudProviderAccess. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/cloud-provider-access-get-roles/
+
+### cloudProviderAccess.create(body, [options]) ⇒ <code>Promise</code>
+Function - Creates the cloudProviderAccess as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| body | <code>Object</code> |  | Body which has details for cloudProviderAccess which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/cloud-provider-access-create-one-role/
+
+### cloudProviderAccess.update(roleId, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the cloudProviderAccess for the roleId passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| roleId | <code>String</code> |  | roleId of the cloudProviderAccess for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for dataLake which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/cloud-provider-access-authorize-one-role/
+
+### cloudProviderAccess.delete(roleId, [options]) ⇒ <code>Promise</code>
+Function - Deletes the cloudProviderAccess name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| roleId | <code>String</code> |  | roleId of the cloudProviderAccess which needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/cloud-provider-access-deauthorize-one-role/
+
 

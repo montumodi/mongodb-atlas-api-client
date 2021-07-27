@@ -13,7 +13,7 @@ const client = getClient({
   "projectId": projectId
 });
 
-describe.skip("Mongo Atlas Api Client - cloudProviderAccess", () => {
+describe("Mongo Atlas Api Client - cloudProviderAccess", () => {
 
   describe("When cloudProviderAccess is exported from index", () => {
     it("should export cloudProviderAccess functions", async () => {
@@ -27,7 +27,7 @@ describe.skip("Mongo Atlas Api Client - cloudProviderAccess", () => {
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/cloudProviderAccesss?key1=value1&key2=value2`)
+        .get(`/groups/${projectId}/cloudProviderAccess?key1=value1&key2=value2`)
         .reply(200, [{"cloudProviderAccess": "name"}]);
       const result = await client.cloudProviderAccess.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"cloudProviderAccess": "name"}]);
@@ -38,7 +38,7 @@ describe.skip("Mongo Atlas Api Client - cloudProviderAccess", () => {
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .patch(`/groups/${projectId}/cloudProviderAccesss/roleId?key1=value1&key2=value2`)
+        .patch(`/groups/${projectId}/cloudProviderAccess/roleId?key1=value1&key2=value2`)
         .reply(200, [{"cloudProviderAccess": "name"}]);
       const result = await client.cloudProviderAccess.update("roleId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"cloudProviderAccess": "name"}]);
@@ -49,10 +49,10 @@ describe.skip("Mongo Atlas Api Client - cloudProviderAccess", () => {
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .post(`/groups/${projectId}/cloudProviderAccesss?key1=value1&key2=value2`)
-        .reply(200, [{"cloudProviderAccesss": "name"}]);
+        .post(`/groups/${projectId}/cloudProviderAccess?key1=value1&key2=value2`)
+        .reply(200, [{"cloudProviderAccess": "name"}]);
       const result = await client.cloudProviderAccess.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
-      expect(result).to.equal([{"cloudProviderAccesss": "name"}]);
+      expect(result).to.equal([{"cloudProviderAccess": "name"}]);
       expect(expectedRequest.isDone()).to.be.true();
     });
   });
@@ -60,7 +60,7 @@ describe.skip("Mongo Atlas Api Client - cloudProviderAccess", () => {
   describe("When delete is called with querystring parameters", () => {
     it("should return response", async () => {
       const expectedRequest = nock(baseUrl)
-        .delete(`/groups/${projectId}/cloudProviderAccesss/aws/roleId?key1=value1&key2=value2`)
+        .delete(`/groups/${projectId}/cloudProviderAccess/aws/roleId?key1=value1&key2=value2`)
         .reply(200, true);
       const result = await client.cloudProviderAccess.delete("aws", "roleId", {"key1": "value1", "key2": "value2"});
       expect(result).to.be.true();

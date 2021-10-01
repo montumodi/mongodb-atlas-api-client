@@ -64,6 +64,7 @@ Following entities are currently supported
 - [Event](#event)
 - [Alert](#alert)
 - [DataLake](#datalake)
+- [AtlasSearch](#atlassearch)
 
 ### User
 
@@ -856,5 +857,99 @@ Function - Deletes the cloudProviderAccess name passed.
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
 More details - https://docs.atlas.mongodb.com/reference/api/cloud-provider-access-deauthorize-one-role/
+
+### AtlasSearch
+
+### atlasSearch.get(clusterName, indexId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of atlas search index by cluster name and index passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| indexId | <code>String</code> |  | id of the index for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-indexes-get-one/
+
+### atlasSearch.getAll(clusterName, databaseName, collectionName, [options]) ⇒ <code>Promise</code>
+Function - Returns all the atlas search indexes. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| databaseName | <code>String</code> |  | name of the database for which details needs to be retrieved |
+| collectionName | <code>String</code> |  | name of the collection for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-indexes-get-all/
+
+### atlasSearch.getAllAnalyzers(clusterName, [options]) ⇒ <code>Promise</code>
+Function - Returns all the Analyzers. Pagination can be controlled via options object.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-analyzers-get-all/
+
+### atlasSearch.create(clusterName, body, [options]) ⇒ <code>Promise</code>
+Function - Creates the atlas search index as per body passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-indexes-create-one/
+
+### atlasSearch.update(clusterName, indexId, body, [options]) ⇒ <code>Promise</code>
+Function - Updates the atlas search index for the clusterName passed. It only updates the properties passed in body.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be updated |
+| indexId | <code>String</code> |  | name of the index for which details needs to be updated |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be updated |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-indexes-update-one/
+
+### atlasSearch.upsertAnalyzer(clusterName, body, [options]) ⇒ <code>Promise</code>
+Function - Upserts the analyser for the clusterName passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster for which details needs to be upserted |
+| body | <code>Object</code> |  | Body which has details for cluster which needs to be upserted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-analyzers-update-all/
+
+### atlasSearch.delete(clusterName, indexId, [options]) ⇒ <code>Promise</code>
+Function - Deletes the atlas search index by cluster name passed.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clusterName | <code>String</code> |  | name of the cluster which needs to be deleted |
+| indexId | <code>String</code> |  | name of the index for which details needs to be deleted |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/fts-indexes-delete-one/
 
 

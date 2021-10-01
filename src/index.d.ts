@@ -10,6 +10,7 @@ import {ProjectAccesslist} from './projectAccesslist';
 import {User} from './user';
 import {DataLake} from './dataLake';
 import {CloudProviderAccess} from './cloudProviderAccess';
+import {AtlasSearch} from './atlasSearch';
 
 export * from './alert'
 export * from './atlasUser';
@@ -23,6 +24,7 @@ export * from './projectAccesslist';
 export * from './user';
 export * from './dataLake'
 export * from './cloudProviderAccess';
+export * from './atlasSearch';
 
 export interface KeyValuePairDocument {
     key: string;
@@ -67,6 +69,7 @@ export interface AtlasClient {
     event: Event;
     dataLake: DataLake;
     cloudProviderAccess: CloudProviderAccess;
+    atlasSearch: AtlasSearch
 }
 
 export interface AtlasClientConfig {

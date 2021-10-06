@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class AtlasSearch {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class AtlasSearch {
   }
 
   async get(clusterName, indexId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class AtlasSearch {
   }
 
   async getAllAnalyzers(clusterName, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class AtlasSearch {
   }
 
   async upsertAnalyzer(clusterName, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, {
         "method": "PUT",
@@ -37,7 +38,8 @@ class AtlasSearch {
   }
 
   async getAll(clusterName, databaseName, collectionName, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${databaseName}/${collectionName}?${queryString}`)
     ).json();
@@ -45,7 +47,8 @@ class AtlasSearch {
   }
 
   async delete(clusterName, indexId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
       "method": "DELETE"
     });
@@ -53,7 +56,8 @@ class AtlasSearch {
   }
 
   async update(clusterName, indexId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
         "method": "PATCH",
@@ -65,7 +69,8 @@ class AtlasSearch {
   }
 
   async create(clusterName, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes?${queryString}`, {
         "method": "POST",

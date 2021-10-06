@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class Organization {
 
   constructor(client, baseUrl) {
@@ -8,7 +6,8 @@ class Organization {
   }
 
   async getById(organizationId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`)
     ).json();
@@ -16,7 +15,8 @@ class Organization {
   }
 
   async getAllUsersForOrganization(organizationId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/users?${queryString}`)
     ).json();
@@ -24,7 +24,8 @@ class Organization {
   }
 
   async getAllProjectsForOrganization(organizationId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/groups?${queryString}`)
     ).json();
@@ -32,7 +33,8 @@ class Organization {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs?${queryString}`)
     ).json();
@@ -40,7 +42,8 @@ class Organization {
   }
 
   async delete(organizationId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
       "method": "DELETE"
     });
@@ -48,7 +51,8 @@ class Organization {
   }
 
   async rename(organizationId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
         "method": "PATCH",

@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class CloudProviderAccess {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class CloudProviderAccess {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/cloudProviderAccess?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class CloudProviderAccess {
   }
 
   async delete(cloudProvider, roleId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/cloudProviderAccess/${cloudProvider}/${roleId}?${queryString}`, {
       "method": "DELETE"
     });
@@ -25,7 +25,8 @@ class CloudProviderAccess {
   }
 
   async update(roleId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/cloudProviderAccess/${roleId}?${queryString}`, {
         "method": "PATCH",
@@ -37,7 +38,8 @@ class CloudProviderAccess {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/cloudProviderAccess?${queryString}`, {
         "method": "POST",

@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class User {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class User {
   }
 
   async get(username, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class User {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class User {
   }
 
   async delete(username, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
       "method": "DELETE"
     });
@@ -33,7 +34,8 @@ class User {
   }
 
   async update(username, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
         "method": "PATCH",
@@ -45,7 +47,8 @@ class User {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`, {
         "method": "POST",

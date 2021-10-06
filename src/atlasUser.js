@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class AtlasUser {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class AtlasUser {
   }
 
   async getByName(username, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/byName/${username}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class AtlasUser {
   }
 
   async getById(userId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/${userId}?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class AtlasUser {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/users?${queryString}`)
     ).json();
@@ -34,7 +35,8 @@ class AtlasUser {
 
 
   async update(userId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users/${userId}?${queryString}`, {
         "method": "PATCH",
@@ -46,7 +48,8 @@ class AtlasUser {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/users?${queryString}`, {
         "method": "POST",

@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class ProjectAccesslist {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class ProjectAccesslist {
   }
 
   async get(accesslistentry, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class ProjectAccesslist {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class ProjectAccesslist {
   }
 
   async delete(accesslistentry, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`, {
       "method": "DELETE"
     });
@@ -33,7 +34,8 @@ class ProjectAccesslist {
   }
 
   async update(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
         "method": "POST",
@@ -45,7 +47,8 @@ class ProjectAccesslist {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
         "method": "POST",

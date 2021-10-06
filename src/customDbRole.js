@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class CustomDbRole {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class CustomDbRole {
   }
 
   async get(rolename, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class CustomDbRole {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class CustomDbRole {
   }
 
   async delete(rolename, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`, {
       "method": "DELETE"
     });
@@ -33,7 +34,8 @@ class CustomDbRole {
   }
 
   async update(rolename, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`, {
         "method": "PATCH",
@@ -45,7 +47,8 @@ class CustomDbRole {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles?${queryString}`, {
         "method": "POST",

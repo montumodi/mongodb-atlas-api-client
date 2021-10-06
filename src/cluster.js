@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class Cluster {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class Cluster {
   }
 
   async get(clustername, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class Cluster {
   }
 
   async getAdvanceConfiguration(clustername, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/processArgs?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class Cluster {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`)
     ).json();
@@ -33,7 +34,8 @@ class Cluster {
   }
 
   async delete(clustername, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`, {
       "method": "DELETE"
     });
@@ -41,7 +43,8 @@ class Cluster {
   }
 
   async update(clustername, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`, {
         "method": "PATCH",
@@ -53,7 +56,8 @@ class Cluster {
   }
 
   async updateAdvanceConfiguration(clustername, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/processArgs?${queryString}`, {
         "method": "PATCH",
@@ -65,7 +69,8 @@ class Cluster {
   }
 
   async testPrimaryFailOver(clustername, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}/restartPrimaries?${queryString}`, {
         "method": "POST"
@@ -75,7 +80,8 @@ class Cluster {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, {
         "method": "POST",

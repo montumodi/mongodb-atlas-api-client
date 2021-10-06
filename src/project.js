@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class Project {
 
   constructor(client, baseUrl) {
@@ -8,7 +6,8 @@ class Project {
   }
 
   async getById(projectId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}?${queryString}`)
     ).json();
@@ -16,7 +15,8 @@ class Project {
   }
 
   async getByName(projectName, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/byName/${projectName}?${queryString}`)
     ).json();
@@ -24,7 +24,8 @@ class Project {
   }
 
   async getTeamsByProjectId(projectId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/teams?${queryString}`)
     ).json();
@@ -32,7 +33,8 @@ class Project {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups?${queryString}`)
     ).json();
@@ -40,7 +42,8 @@ class Project {
   }
 
   async delete(projectId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}?${queryString}`, {
       "method": "DELETE"
     });
@@ -48,7 +51,8 @@ class Project {
   }
 
   async removeUserFromProject(projectId, userId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/users/${userId}?${queryString}`, {
       "method": "DELETE"
     });
@@ -56,7 +60,8 @@ class Project {
   }
 
   async assignTeams(projectId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${projectId}/teams?${queryString}`, {
         "method": "POST",
@@ -68,7 +73,8 @@ class Project {
   }
 
   async create(body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups?${queryString}`, {
         "method": "POST",

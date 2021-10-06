@@ -49,7 +49,6 @@
   },
   "dependencies": {
     "digest-fetch": "^1.1.6",
-    "node-fetch": "^2.6.5",
-    "qs": "^6.9.6"
+    "node-fetch": "^2.6.5"
   }
 }

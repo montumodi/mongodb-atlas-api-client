@@ -1,5 +1,3 @@
-const qs = require("qs");
-
 class Alert {
 
   constructor(client, baseUrl, projectId) {
@@ -9,7 +7,8 @@ class Alert {
   }
 
   async getAll(options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts?${queryString}`)
     ).json();
@@ -17,7 +16,8 @@ class Alert {
   }
 
   async get(alertId, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts/${alertId}?${queryString}`)
     ).json();
@@ -25,7 +25,8 @@ class Alert {
   }
 
   async acknowledge(alertId, body, options) {
-    const queryString = qs.stringify(options);
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts/${alertId}?${queryString}`, {
         "method": "PATCH",

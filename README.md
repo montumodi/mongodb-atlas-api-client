@@ -572,6 +572,23 @@ Function - Renames the organization
 
 More details - https://docs.atlas.mongodb.com/reference/api/organization-rename/
 
+### organization.invite(organizationId, body, [options]) ⇒ <code>Promise</code>
+Function - Sends an invitation to the given email (username) to join the Organization
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| organizationId | <code>String</code> |  | Id of the organization for which needs to be renamed |
+| body | <code>Object</code> |  | Organization invitation details 
+| body.roles | <code>string[]</code> |  | Atlas roles to assign to the invited user. If the user accepts the invitation, Atlas assigns these roles to them. |
+| body.teamIds | <code>string[]</code> |  | *(Optional)* Unique 24-hexadecimal digit strings that identify the teams that you invite the user to join. 
+| body.username | <code>string</code> |  | Email address of the invited user. This is the address to which Atlas sends the invite. 
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
+
+More details - https://docs.atlas.mongodb.com/reference/api/organization-rename/
+
+
 ### organization.delete(organizationId, [options]) ⇒ <code>Promise</code>
 Function - Deletes the project id passed.
 

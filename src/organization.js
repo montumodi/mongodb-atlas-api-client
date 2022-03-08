@@ -62,6 +62,19 @@ class Organization {
     ).json();
     return response;
   }
+
+  async invite(organizationId, body, options) {
+    const urlparams = new URLSearchParams(options);
+    const queryString = urlparams.toString();
+    const response = (
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/invites?${queryString}`, {
+        "method": "POST",
+        "body": JSON.stringify(body),
+        "headers": {"Content-Type": "application/json"}
+      })
+    ).json();
+    return response;
+  }
 }
 
 module.exports = Organization;

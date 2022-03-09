@@ -17,6 +17,24 @@ export interface RenameOrganizationRequest {
      */
     name: string;
 }
+
+export interface InviteOneToOrganizationRequest {
+    roles: string[],
+    teamIds?: string[],
+    username: string,
+}
+
+export interface InviteOneToOrganizationResponse {
+    createdAt: string,
+    expiresAt: string,
+    id: string,
+    inviterUsername: string,
+    orgId: string,
+    orgName: string,
+    roles: string[],
+    teamIds: string[],
+    username: string,
+}
 export type RenameOrganizationResponse = GetOrganizationResponse;
 export interface Organization {
     getById(organizationId: OrganizationId, options?: AtlasClientOptions): Promise<GetOrganizationResponse | AtlasError>;
@@ -25,4 +43,5 @@ export interface Organization {
     getAll(options?: AtlasClientOptions): Promise<GetAllOrganizationsResponse | AtlasError>;
     delete(organizationId: OrganizationId, options?: AtlasClientOptions): Promise<void | AtlasError>;
     rename(organizationId: OrganizationId, organization: RenameOrganizationRequest, options?: AtlasClientOptions): Promise<RenameOrganizationResponse | AtlasError>;
+    invite(organizationId: OrganizationId, organization: InviteOneToOrganizationRequest, options?: AtlasClientOptions): Promise<InviteOneToOrganizationResponse | AtlasError>;
 }

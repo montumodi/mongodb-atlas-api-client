@@ -21,6 +21,7 @@ describe("Mongo Atlas Api Client - Organization", () => {
       expect(client.organization.rename).to.be.function();
       expect(client.organization.getAllUsersForOrganization).to.be.function();
       expect(client.organization.getAllProjectsForOrganization).to.be.function();
+      expect(client.organization.invite).to.be.function();
     });
   });
 
@@ -86,6 +87,17 @@ describe("Mongo Atlas Api Client - Organization", () => {
         .reply(200, true);
       const result = await client.organization.delete("orgId", {"key1": "value1", "key2": "value2"});
       expect(result).to.be.true();
+      expect(expectedRequest.isDone()).to.be.true();
+    });
+  });
+
+  describe("When invite is called with querystring parameters", () => {
+    it("should return response", async () => {
+      const expectedRequest = nock(baseUrl)
+        .post("/orgs/orgId/invites?key1=value1&key2=value2")
+        .reply(200, [{"organization": "name"}]);
+      const result = await client.organization.invite("orgId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
+      expect(result).to.equal([{"organization": "name"}]);
       expect(expectedRequest.isDone()).to.be.true();
     });
   });

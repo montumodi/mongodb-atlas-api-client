@@ -586,7 +586,7 @@ Function - Sends an invitation to the given email (username) to join the Organiz
 | body.username | <code>string</code> |  | Email address of the invited user. This is the address to which Atlas sends the invite. 
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api |
 
-More details - https://docs.atlas.mongodb.com/reference/api/organization-rename/
+More details - https://docs.atlas.mongodb.com/reference/api/organization-create-one-invitation/
 
 
 ### organization.delete(organizationId, [options]) ⇒ <code>Promise</code>

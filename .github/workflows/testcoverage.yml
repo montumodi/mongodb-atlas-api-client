@@ -3,7 +3,7 @@ name: Test Coverage
 on:
   push
 jobs:
-  publish-npm:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

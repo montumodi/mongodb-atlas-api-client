@@ -22,6 +22,5 @@ jobs:
           files: "test-results/result.json"
 
       - name: Set badge color
-      - uses: actions/checkout@v1
       - shell: bash
-        run: ${{ fromJSON( steps.test-results.result.json ).coverage.percentage
+      - run: ${{ fromJSON( steps.test-results.result.json ).coverage.percentage

@@ -16,8 +16,12 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm install
       - run: npm test
-      - id: test-results
-      - if: always()
+      - name: get specified property
+        id: repository_type
+        uses: zoexx/github-action-json-file-properties@release
         with:
-          files: "test-results/result.json"
-      - run: ${{ fromJSON( steps.test-results.result.json ).coverage.percentage
+          file_path: "test-results/result.jsonn"
+          prop_path: "coverage.percent"
+
+      - run: |
+          echo ${{steps.repository_type.outputs.value}}

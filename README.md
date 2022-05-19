@@ -2,7 +2,6 @@
 
 A mongdb atlas api client for nodejs.
 
-[![Known Vulnerabilities](https://snyk.io/test/github/montumodi/mongodb-atlas-api-client/badge.svg)](https://snyk.io/test/github/montumodi/mongodb-atlas-api-client)
 [![Coverage Status](https://coveralls.io/repos/github/montumodi/mongodb-atlas-api-client/badge.svg?branch=master)](https://coveralls.io/github/montumodi/mongodb-atlas-api-client?branch=master)
 ![NPM Publish](https://github.com/montumodi/mongodb-atlas-api-client/actions/workflows/.github/workflows/npmpublish.yml/badge.svg)
 

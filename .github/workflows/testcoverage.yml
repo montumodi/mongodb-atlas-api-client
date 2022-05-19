@@ -24,4 +24,21 @@ jobs:
           prop_path: "coverage.percent"
 
       - run: |
-          echo ${{steps.repository_type.outputs.value}}
+          echo ${{steps.repository_type.outputs.value}} >> $TESTS_PERC
+          
+      - name: Create badge
+        uses: emibcn/badge-action@d6f51ff11b5c3382b3b88689ae2d6db22d9737d1
+        with:
+          label: Tests
+          status: 'Tests Coverage: $TESTS_PERC%'
+          color: '31c653'
+          path: badge.svg
+
+      - name: Upload badge to Gist
+        # Upload only for master branch
+        if: github.ref == 'refs/heads/master'
+        uses: andymckay/append-gist-action@1fbfbbce708a39bd45846f0955ed5521f2099c6d
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gistURL: https://gist.githubusercontent.com/{user}/{id}
+          file: badge.svg

@@ -20,7 +20,7 @@ jobs:
         id: repository_type
         uses: zoexx/github-action-json-file-properties@release
         with:
-          file_path: "test-results/result.jsonn"
+          file_path: "test-results/result.json"
           prop_path: "coverage.percent"
 
       - run: |

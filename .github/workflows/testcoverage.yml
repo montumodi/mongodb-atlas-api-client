@@ -1,8 +1,7 @@
 name: Test Coverage
 
 on:
-  branch_protection_rule:
-    types: [created, deleted]
+  push
 jobs:
   publish-npm:
     runs-on: ubuntu-latest

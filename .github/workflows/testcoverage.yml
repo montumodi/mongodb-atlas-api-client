@@ -24,13 +24,13 @@ jobs:
           prop_path: "coverage.percent"
 
       - run: |
-          echo ${{steps.repository_type.outputs.value}} >> $TESTS_PERC
+          echo ${{steps.repository_type.outputs.value}}
           
       - name: Create badge
         uses: emibcn/badge-action@d6f51ff11b5c3382b3b88689ae2d6db22d9737d1
         with:
           label: Tests
-          status: 'Tests Coverage: $TESTS_PERC%'
+          status: 'Tests Coverage: ${{steps.repository_type.outputs.value}}'
           color: '31c653'
           path: badge.svg
 

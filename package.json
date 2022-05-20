@@ -8,7 +8,7 @@
     "pretest": "npm run depcheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
     "depcheck": "depcheck --ignores node-fetch",
     "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "test": "./node_modules/@hapi/lab/bin/lab ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json",
+    "test": "./node_modules/@hapi/lab/bin/lab ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json -r console -o stdout",
     "lint": "./node_modules/.bin/eslint ./src --fix",
     "travis": "npm run test",
     "premajor": "npm run test",

@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class Organization {
 
   constructor(client, baseUrl) {
@@ -5,74 +7,77 @@ class Organization {
     this.baseUrl_ = baseUrl;
   }
 
-  async getById(organizationId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getById(organizationId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAllUsersForOrganization(organizationId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAllUsersForOrganization(organizationId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/users?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/users?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAllProjectsForOrganization(organizationId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAllProjectsForOrganization(organizationId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/groups?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/groups?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async delete(organizationId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async delete(organizationId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async rename(organizationId, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async rename(organizationId, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async invite(organizationId, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async invite(organizationId, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/invites?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

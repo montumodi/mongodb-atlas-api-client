@@ -2,6 +2,9 @@ const {describe, it} = exports.lab = require("@hapi/lab").script();
 const {expect} = require("@hapi/code");
 const nock = require("nock");
 const getClient = require("../src");
+const AtlasSearch = require("../src/atlasSearch");
+const HttpClient = require("../src/httpClient");
+const sinon = require("sinon");
 
 const baseUrl = "http://dummyBaseUrl";
 const projectId = "dummyProjectId";
@@ -103,4 +106,92 @@ describe("Mongo Atlas Api Client - atlasSearch", () => {
       expect(expectedRequest.isDone()).to.be.true();
     });
   });
+});
+
+describe("AtlasSearch Class", () => {
+
+  const mockRequest = {
+    "request": sinon.stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
+  };
+  const mockHttpClient = new HttpClient(mockRequest, "dummyPublicKey", "dummyPrivateKey");
+
+  const atlasSearch = new AtlasSearch(mockHttpClient, "dummyBaseUrl", "dummyProjectId");
+
+  describe("When getAllAnalyzers method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      await atlasSearch.getAllAnalyzers("clusterName", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/analyzers?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When Get method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      await atlasSearch.get("clusterName", "indexId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/indexes/indexId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When upsertAnalyzer method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "PUT",
+        "data": {"body": "text"},
+        "headers": {"Content-Type": "application/json"}};
+      await atlasSearch.upsertAnalyzer("clusterName", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/analyzers?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When getAll method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      await atlasSearch.getAll("clusterName", "databaseName", "collectionName", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/indexes/databaseName/collectionName?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When delete method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "DELETE"
+      };
+      await atlasSearch.delete("clusterName", "indexId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/indexes/indexId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When update method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "PATCH",
+        "data": {"body": "text"},
+        "headers": {"Content-Type": "application/json"}
+      };
+      await atlasSearch.update("clusterName", "indexId", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/indexes/indexId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When create method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "POST",
+        "data": {"body": "text"},
+        "headers": {"Content-Type": "application/json"}
+      };
+      await atlasSearch.create("clusterName", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/clusters/clusterName/fts/indexes?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
 });

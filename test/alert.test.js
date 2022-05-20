@@ -2,6 +2,9 @@ const {describe, it} = exports.lab = require("@hapi/lab").script();
 const {expect} = require("@hapi/code");
 const nock = require("nock");
 const getClient = require("../src");
+const Alert = require("../src/alert");
+const HttpClient = require("../src/httpClient");
+const sinon = require("sinon");
 
 const baseUrl = "http://dummyBaseUrl";
 const projectId = "dummyProjectId";
@@ -55,4 +58,44 @@ describe("Mongo Atlas Api Client - Alert", () => {
       expect(expectedRequest.isDone()).to.be.true();
     });
   });
+});
+
+describe("Alert Class", () => {
+
+  const mockRequest = {
+    "request": sinon.stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
+  };
+  const mockHttpClient = new HttpClient(mockRequest, "dummyPublicKey", "dummyPrivateKey");
+
+  const alert = new Alert(mockHttpClient, "dummyBaseUrl", "dummyProjectId");
+
+  describe("When GetAll method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      await alert.getAll({"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When Get method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      await alert.get("alertId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts/alertId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When Acknowledge method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "PATCH",
+        "data": {"body": "text"},
+        "headers": {"Content-Type": "application/json"}};
+      await alert.acknowledge("alertId", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts/alertId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
 });

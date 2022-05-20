@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class ProjectAccesslist {
 
   constructor(client, baseUrl, projectId) {
@@ -6,56 +8,59 @@ class ProjectAccesslist {
     this.projectId_ = projectId;
   }
 
-  async get(accesslistentry, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(accesslistentry, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async delete(accesslistentry, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async delete(accesslistentry, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList/${accesslistentry}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async update(body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async update(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async create(body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async create(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

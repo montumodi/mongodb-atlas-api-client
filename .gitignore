@@ -11,3 +11,4 @@ coverage.html
 .npmrc
 coverage
 .coveralls.yml
+test-results

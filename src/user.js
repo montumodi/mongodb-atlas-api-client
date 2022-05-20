@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class User {
 
   constructor(client, baseUrl, projectId) {
@@ -6,56 +8,59 @@ class User {
     this.projectId_ = projectId;
   }
 
-  async get(username, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(username, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async delete(username, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async delete(username, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async update(username, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async update(username, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers/admin/${username}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async create(body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async create(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/databaseUsers?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

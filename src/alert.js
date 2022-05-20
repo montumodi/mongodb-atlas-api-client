@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class Alert {
 
   constructor(client, baseUrl, projectId) {
@@ -6,34 +8,35 @@ class Alert {
     this.projectId_ = projectId;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async get(alertId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(alertId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts/${alertId}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts/${alertId}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async acknowledge(alertId, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async acknowledge(alertId, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/alerts/${alertId}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

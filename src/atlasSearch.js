@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class AtlasSearch {
 
   constructor(client, baseUrl, projectId) {
@@ -6,78 +8,82 @@ class AtlasSearch {
     this.projectId_ = projectId;
   }
 
-  async get(clusterName, indexId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(clusterName, indexId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAllAnalyzers(clusterName, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAllAnalyzers(clusterName, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async upsertAnalyzer(clusterName, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async upsertAnalyzer(clusterName, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, {
         "method": "PUT",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async getAll(clusterName, databaseName, collectionName, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(clusterName, databaseName, collectionName, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${databaseName}/${collectionName}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${databaseName}/${collectionName}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async delete(clusterName, indexId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async delete(clusterName, indexId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async update(clusterName, indexId, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async update(clusterName, indexId, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async create(clusterName, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async create(clusterName, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

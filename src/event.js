@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class Event {
 
   constructor(client, baseUrl, projectId) {
@@ -6,39 +8,39 @@ class Event {
     this.projectId_ = projectId;
   }
 
-  async get(eventId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(eventId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events/${eventId}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events/${eventId}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/events?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getByOrganizationId(organizationId, eventId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getByOrganizationId(organizationId, eventId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events/${eventId}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events/${eventId}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAllByOrganizationId(organizationId, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAllByOrganizationId(organizationId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/orgs/${organizationId}/events?${queryString}`, httpOptions)
+    );
     return response;
   }
 

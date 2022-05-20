@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class CustomDbRole {
 
   constructor(client, baseUrl, projectId) {
@@ -6,56 +8,59 @@ class CustomDbRole {
     this.projectId_ = projectId;
   }
 
-  async get(rolename, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(rolename, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles?${queryString}`)
-    ).json();
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles?${queryString}`, httpOptions)
+    );
     return response;
   }
 
-  async delete(rolename, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async delete(rolename, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async update(rolename, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async update(rolename, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles/${rolename}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async create(body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async create(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/customDBRoles/roles?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

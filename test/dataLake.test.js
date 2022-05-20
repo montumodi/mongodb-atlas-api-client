@@ -2,7 +2,6 @@ const {describe, it} = exports.lab = require("@hapi/lab").script();
 const {expect} = require("@hapi/code");
 const nock = require("nock");
 const getClient = require("../src");
-
 const baseUrl = "http://dummyBaseUrl";
 const projectId = "dummyProjectId";
 
@@ -43,7 +42,7 @@ describe("Mongo Atlas Api Client - dataLake", () => {
         .get(`/groups/${projectId}/dataLakes/mydataLakename/queryLogs.gz?key1=value1&key2=value2`)
         .reply(200, Buffer.from("Some test string", "utf8"), {"headers": {"accept": "application/gzip"}});
       const result = await client.dataLake.getLogsStream("mydataLakename", {"key1": "value1", "key2": "value2"});
-      expect(result).to.be.object();
+      expect(result.pipe).to.exist();
       expect(expectedRequest.isDone()).to.be.true();
     });
   });

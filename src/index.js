@@ -11,7 +11,8 @@ const Alert = require("./alert");
 const DataLake = require("./dataLake");
 const CloudProviderAccess = require("./cloudProviderAccess");
 const AtlasSearch = require("./atlasSearch");
-const DigestFetch = require("digest-fetch");
+const urllibClient = require("urllib");
+const HttpClient = require("./httpClient");
 
 function getFunctions(instance) {
   const functions = {};
@@ -23,12 +24,10 @@ function getFunctions(instance) {
   return functions;
 }
 
+
 function getMongodbAtlasApiClient(options) {
-  const client = new DigestFetch(
-    options.publicKey,
-    options.privateKey,
-    {}
-  );
+
+  const client = new HttpClient(urllibClient, options.publicKey, options.privateKey);
   const user = new User(client, options.baseUrl, options.projectId);
   const cluster = new Cluster(client, options.baseUrl, options.projectId);
   const customDbRole = new CustomDbRole(client, options.baseUrl, options.projectId);

@@ -1,3 +1,5 @@
+const {getQueryStringFromOptions} = require("./helper");
+
 class DataLake {
 
   constructor(client, baseUrl, projectId) {
@@ -6,69 +8,69 @@ class DataLake {
     this.projectId_ = projectId;
   }
 
-  async get(dataLakeName, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async get(dataLakeName, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}?${queryString}`)
-    ).json();
-    return response;
-  }
-
-  async getLogsStream(dataLakeName, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}/queryLogs.gz?${queryString}`, {
-        "headers": {
-          "Accept": "application/gzip"
-        }
-      })
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}?${queryString}`, httpOptions)
     );
-    return response.body;
-  }
-
-  async getAll(options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes?${queryString}`)
-    ).json();
     return response;
   }
 
-  async delete(dataLakeName, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async getLogsStream(dataLakeName, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    const response = await this.client_.fetchStream(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}/queryLogs.gz?${queryString}`, {
+      "gzip": true,
+      ...httpOptions
+    });
+    return response;
+  }
+
+  async getAll(options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    const response = (
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes?${queryString}`, httpOptions)
+    );
+    return response;
+  }
+
+  async delete(dataLakeName, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}?${queryString}`, {
-      "method": "DELETE"
+      "method": "DELETE",
+      ...httpOptions
     });
     return true;
   }
 
-  async update(dataLakeName, body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async update(dataLakeName, body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes/${dataLakeName}?${queryString}`, {
         "method": "PATCH",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 
-  async create(body, options) {
-    const urlparams = new URLSearchParams(options);
-    const queryString = urlparams.toString();
+  async create(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/dataLakes?${queryString}`, {
         "method": "POST",
-        "body": JSON.stringify(body),
-        "headers": {"Content-Type": "application/json"}
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
       })
-    ).json();
+    );
     return response;
   }
 }

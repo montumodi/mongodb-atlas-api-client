@@ -30,7 +30,7 @@ jobs:
         uses: emibcn/badge-action@d6f51ff11b5c3382b3b88689ae2d6db22d9737d1
         with:
           label: Tests
-          status: 'Tests Coverage: ${{steps.repository_type.outputs.value}}'
+          status: 'Tests Coverage: ${{steps.repository_type.outputs.value}}%'
           color: '31c653'
           path: badge.svg
 

@@ -35,7 +35,6 @@ class AtlasUser {
     return response;
   }
 
-
   async update(userId, body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;

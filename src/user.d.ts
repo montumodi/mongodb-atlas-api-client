@@ -45,6 +45,7 @@ export interface UpdateUserRequest {
     labels?: KeyValuePairDocumentArray;
     roles?: UserRoleConfig[];
     password?: string;
+    scopes?: UserScopeConfig[];
 }
 export type UpdateUserResponse = GetUserResponse;
 export interface User {

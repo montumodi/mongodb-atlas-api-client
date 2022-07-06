@@ -24,12 +24,17 @@ export interface CreateUserRequest {
     roles: UserRoleConfig[];
     password: string;
     username: string;
+    scopes?: UserScopeConfig[];
 }
 export type CreateUserResponse = GetUserResponse;
 export interface UserRoleConfig {
     collectionName?: string;
     databaseName: string;
     roleName: string;
+}
+export interface UserScopeConfig {
+    name: string;
+    type: string;
 }
 export interface UpdateUserRequest {
     /**

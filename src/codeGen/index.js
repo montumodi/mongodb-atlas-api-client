@@ -1,4 +1,4 @@
-const generateCode = require("./generator");
+const generateClass = require("./generator");
 
 const input = [
   {
@@ -35,9 +35,14 @@ const input = [
     "method": "POST",
     "functionName": "createContainer",
     "url": "/groups/{GROUP-ID}/containers"
+  },
+  {
+    "method": "DELETE",
+    "functionName": "deleteContainerById",
+    "url": "/groups/{GROUP-ID}/containers/{containerId}"
   }
 
 ];
 
 /* eslint-ignore no-console*/
-console.log(generateCode("NetworkPeer", input));
+console.log(generateClass("NetworkPeer", input));

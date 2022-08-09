@@ -11,27 +11,12 @@ function getFunctionsParts(endpoint) {
   return { functionParams, urlComponents };
 }
 
-function getClassCode(className, functionSection) {
-  return `const {getQueryStringFromOptions} = require("./helper");
-
-  class ${className} {
-  
-    constructor(client, baseUrl, projectId) {
-      this.client_ = client;
-      this.baseUrl_ = baseUrl;
-      this.projectId_ = projectId;
-    }
-  
-    ${functionSection}
-    
-  }
-  
-  module.exports = ${className};`;
-}
-
 const functionMap = {
   "GET": generateGETMethodSnippet,
-  "POST": generatePOSTMethodSnippet
+  "POST": generateUpsertMethodSnippet,
+  "PUT": generateUpsertMethodSnippet,
+  "PATCH": generateUpsertMethodSnippet,
+  "DELETE": generateDELETEMethodSnippet
 }
 
 function generateFunctions(endpointsArray) {
@@ -47,8 +32,22 @@ function generateFunctions(endpointsArray) {
   return functionSection;
 }
 
-function generateCode(className, endpointsArray) {
-  return getClassCode(className, generateFunctions(endpointsArray));
+function generateClass(className, endpointsArray) {
+  return `const {getQueryStringFromOptions} = require("./helper");
+
+  class ${className} {
+  
+    constructor(client, baseUrl, projectId) {
+      this.client_ = client;
+      this.baseUrl_ = baseUrl;
+      this.projectId_ = projectId;
+    }
+  
+    ${generateFunctions(endpointsArray)}
+    
+  }
+  
+  module.exports = ${className};`;
 }
 
 function generateGETMethodSnippet(endpoint) {
@@ -68,8 +67,7 @@ function generateGETMethodSnippet(endpoint) {
   }`
 }
 
-function generatePOSTMethodSnippet(endpoint) {
-
+function generateUpsertMethodSnippet(endpoint) {
   const { functionParams, urlComponents } = getFunctionsParts(endpoint);
 
   functionParams.push("body");
@@ -81,7 +79,7 @@ function generatePOSTMethodSnippet(endpoint) {
     const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(\`\${this.baseUrl_}/groups/\${this.projectId_}${urlComponents}?\${queryString}\`, {
-        "method": "POST",
+        "method": ${endpoint.method},
         "data": body,
         "headers": {"Content-Type": "application/json"},
         ...httpOptions
@@ -91,5 +89,23 @@ function generatePOSTMethodSnippet(endpoint) {
   }`
 }
 
-module.exports = generateCode;
+function generateDELETEMethodSnippet(endpoint) {
+
+  const { functionParams, urlComponents } = getFunctionsParts(endpoint);
+
+  functionParams.push("options = {}");
+  const functionParamsString =  functionParams.join(", ");
+
+  return `async ${endpoint.functionName}(${functionParamsString}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    await this.client_.fetch(\`\${this.baseUrl_}/groups/\${this.projectId_}${urlComponents}?\${queryString}\`, {
+      "method": "DELETE",
+      ...httpOptions
+    });
+    return true;
+  }`
+}
+
+module.exports = generateClass;
 

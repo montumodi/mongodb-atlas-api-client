@@ -11,6 +11,7 @@ const Alert = require("./alert");
 const DataLake = require("./dataLake");
 const CloudProviderAccess = require("./cloudProviderAccess");
 const AtlasSearch = require("./atlasSearch");
+const NetworkPeer = require("./networkPeer");
 const urllibClient = require("urllib");
 const HttpClient = require("./httpClient");
 
@@ -41,6 +42,7 @@ function getMongodbAtlasApiClient(options) {
   const dataLake = new DataLake(client, options.baseUrl, options.projectId);
   const cloudProviderAccess = new CloudProviderAccess(client, options.baseUrl, options.projectId);
   const atlasSearch = new AtlasSearch(client, options.baseUrl, options.projectId);
+  const networkPeer = new NetworkPeer(client, options.baseUrl, options.projectId);
 
   const functions = {};
   functions.user = getFunctions(user);
@@ -56,6 +58,7 @@ function getMongodbAtlasApiClient(options) {
   functions.dataLake = getFunctions(dataLake);
   functions.cloudProviderAccess = getFunctions(cloudProviderAccess);
   functions.atlasSearch = getFunctions(atlasSearch);
+  functions.networkPeer = getFunctions(networkPeer);
 
   return functions;
 }

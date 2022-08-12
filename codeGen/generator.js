@@ -72,45 +72,6 @@ function getFunctionsParts(endpoint) {
   return {functionParams, urlComponents, functionName};
 }
 
-const functionMap = {
-  "GET": generateGetMethodSnippet,
-  "POST": generateUpsertMethodSnippet,
-  "PUT": generateUpsertMethodSnippet,
-  "PATCH": generateUpsertMethodSnippet,
-  "DELETE": generateDeleteMethodSnippet
-};
-
-function generateFunctions(endpointsArray) {
-  let functionSection = "";
-  endpointsArray.forEach(endpoint => {
-
-    functionSection = functionSection.concat(functionMap[endpoint.method](endpoint));
-
-    functionSection = functionSection.concat("\n\n");
-
-  });
-
-  return functionSection;
-}
-
-function generateClass(className, endpointsArray) {
-  return `const {getQueryStringFromOptions} = require("./helper");
-
-  class ${className} {
-  
-    constructor(client, baseUrl, projectId) {
-      this.client_ = client;
-      this.baseUrl_ = baseUrl;
-      this.projectId_ = projectId;
-    }
-  
-    ${generateFunctions(endpointsArray)}
-    
-  }
-  
-  module.exports = ${className};`;
-}
-
 function generateGetMethodSnippet(endpoint) {
 
   const {functionParams, urlComponents, functionName} = getFunctionsParts(endpoint);
@@ -168,5 +129,43 @@ function generateDeleteMethodSnippet(endpoint) {
   }`;
 }
 
+const functionMap = {
+  "GET": generateGetMethodSnippet,
+  "POST": generateUpsertMethodSnippet,
+  "PUT": generateUpsertMethodSnippet,
+  "PATCH": generateUpsertMethodSnippet,
+  "DELETE": generateDeleteMethodSnippet
+};
+
+function generateFunctions(endpointsArray) {
+  let functionSection = "";
+  endpointsArray.forEach(endpoint => {
+
+    functionSection = functionSection.concat(functionMap[endpoint.method](endpoint));
+
+    functionSection = functionSection.concat("\n\n");
+
+  });
+
+  return functionSection;
+}
+
+function generateClass(className, endpointsArray) {
+  return `const {getQueryStringFromOptions} = require("./helper");
+
+  class ${className} {
+  
+    constructor(client, baseUrl, projectId) {
+      this.client_ = client;
+      this.baseUrl_ = baseUrl;
+      this.projectId_ = projectId;
+    }
+  
+    ${generateFunctions(endpointsArray)}
+    
+  }
+  
+  module.exports = ${className};`;
+}
 
 module.exports = generateClass;

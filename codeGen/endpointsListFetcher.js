@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -17,16 +18,17 @@ function cheerioParseHtml(html) {
 async function fetchEndpointsList(url) {
   const endpoints = [];
   const html = await makeRequest(url);
+  // eslint-disable-next-line id-length
   const $ = cheerioParseHtml(html);
   const rows = [];
   // get spans
   const selector = $("table");
-  $(selector).each(function (i, e) {
+  $(selector).each(function () {
     const row = [];
     rows.push(row);
-    $(this).find("td").each(function (i, e) {
+    $(this).find("td").each(function (tdIndex) {
       const text = $(this).text().trim();
-      if (i === 0) {
+      if (tdIndex === 0) {
         row.push(text.split("}")[1]); // This is the hack which removes some random style from the first element.
       } else {
         row.push(text);

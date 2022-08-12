@@ -18,11 +18,11 @@ function generateNonParamFunctionPart(keywords, method) {
     }
 
     if (i !== 0 && i !== nonParamKeywords.length - 1) {
-      tempFuncName = `${tempFuncName}And${currentPascalCaseKeyword}`;
+      tempFuncName = `${tempFuncName}In${currentPascalCaseKeyword}`;
     }
 
     if (nonParamKeywords.length > 1 && i === nonParamKeywords.length - 1) {
-      tempFuncName = `${tempFuncName}In${currentPascalCaseKeyword}`;
+      tempFuncName = `${tempFuncName}For${currentPascalCaseKeyword}`;
     }
   }
 

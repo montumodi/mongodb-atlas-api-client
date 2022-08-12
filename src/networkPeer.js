@@ -8,47 +8,38 @@ class NetworkPeer {
     this.projectId_ = projectId;
   }
 
-  async getClusters(options = {}) {
+  async getAllForContainers(options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/all?${queryString}`, httpOptions)
     );
     return response;
   }
 
-  async getClustersByClusterName(clusterName, options = {}) {
+  async getContainers(options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers?${queryString}`, httpOptions)
     );
     return response;
   }
 
-  async getClusters(options = {}) {
+  async getContainersByContainerId(containerId, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/${containerId}?${queryString}`, httpOptions)
     );
     return response;
   }
 
-  async getProcessArgsInClustersByClusterName(clusterName, options = {}) {
+  async createContainers(body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/processArgs?${queryString}`, httpOptions)
-    );
-    return response;
-  }
-
-  async createClusters(body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, {
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers?${queryString}`, {
         "method": "POST",
         "data": body,
         "headers": {"Content-Type": "application/json"},
@@ -58,11 +49,11 @@ class NetworkPeer {
     return response;
   }
 
-  async updateClustersByClusterName(clusterName, body, options = {}) {
+  async updateContainersByContainerId(containerId, body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, {
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/${containerId}?${queryString}`, {
         "method": "PATCH",
         "data": body,
         "headers": {"Content-Type": "application/json"},
@@ -72,35 +63,39 @@ class NetworkPeer {
     return response;
   }
 
-  async updateProcessArgsInClustersByClusterName(clusterName, body, options = {}) {
+  async deleteContainersByContainerId(containerId, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/processArgs?${queryString}`, {
-        "method": "PATCH",
-        "data": body,
-        "headers": {"Content-Type": "application/json"},
-        ...httpOptions
-      })
-    );
-    return response;
-  }
-
-  async deleteClustersByClusterName(clusterName, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, {
+    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/${containerId}?${queryString}`, {
       "method": "DELETE",
       ...httpOptions
     });
     return true;
   }
 
-  async createRestartPrimariesInClustersByClusterName(clusterName, body, options = {}) {
+  async getPeers(options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/restartPrimaries?${queryString}`, {
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers?${queryString}`, httpOptions)
+    );
+    return response;
+  }
+
+  async getPeersByPeerId(peerId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    const response = (
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers/${peerId}?${queryString}`, httpOptions)
+    );
+    return response;
+  }
+
+  async createPeers(body, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    const response = (
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers?${queryString}`, {
         "method": "POST",
         "data": body,
         "headers": {"Content-Type": "application/json"},
@@ -110,21 +105,12 @@ class NetworkPeer {
     return response;
   }
 
-  async getStatusInClustersByClusterName(clusterName, options = {}) {
+  async updatePeersByPeerId(peerId, body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/status?${queryString}`, httpOptions)
-    );
-    return response;
-  }
-
-  async createSampleDatasetLoadByClusterName(clusterName, body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/sampleDatasetLoad/${clusterName}?${queryString}`, {
-        "method": "POST",
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers/${peerId}?${queryString}`, {
+        "method": "PATCH",
         "data": body,
         "headers": {"Content-Type": "application/json"},
         ...httpOptions
@@ -133,20 +119,35 @@ class NetworkPeer {
     return response;
   }
 
-  async getSampleDatasetLoadBySampleDatasetId(sampleDatasetId, options = {}) {
+  async deletePeersByPeerId(peerId, options = {}) {
+    const queryString = getQueryStringFromOptions(options);
+    const httpOptions = options.httpOptions;
+    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers/${peerId}?${queryString}`, {
+      "method": "DELETE",
+      ...httpOptions
+    });
+    return true;
+  }
+
+  async getPrivateIpMode(options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/sampleDatasetLoad/${sampleDatasetId}?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/privateIpMode?${queryString}`, httpOptions)
     );
     return response;
   }
 
-  async getRegionsAndProviderInClusters(options = {}) {
+  async updatePrivateIpMode(body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/provider/regions?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/privateIpMode?${queryString}`, {
+        "method": "PATCH",
+        "data": body,
+        "headers": {"Content-Type": "application/json"},
+        ...httpOptions
+      })
     );
     return response;
   }

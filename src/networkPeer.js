@@ -8,65 +8,47 @@ class NetworkPeer {
         this.projectId_ = projectId;
     }
 
-    async getAllContainersInProject(options = {}) {
+    async getClusters(options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
         const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/all?${queryString}`, httpOptions)
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, httpOptions)
         );
         return response;
     }
 
-    async getAllContainersInCloudProvider(options = {}) {
+    async getClustersByClusterName(clusterName, options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
         const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers?${queryString}`, httpOptions)
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, httpOptions)
         );
         return response;
     }
 
-    async getContainerByContainerId(containerId, options = {}) {
+    async getClusters(options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
         const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/${containerId}?${queryString}`, httpOptions)
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, httpOptions)
         );
         return response;
     }
 
-    async getAllPeeringsInProject(options = {}) {
+    async getClustersByClusterName(clusterName, options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
         const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers?${queryString}`, httpOptions)
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/processArgs?${queryString}`, httpOptions)
         );
         return response;
     }
 
-    async getPeeringByPeeringId(peerId, options = {}) {
+    async createClusters(body, options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
         const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/peers/${peerId}?${queryString}`, httpOptions)
-        );
-        return response;
-    }
-
-    async getPeeringOnlyMode(options = {}) {
-        const queryString = getQueryStringFromOptions(options);
-        const httpOptions = options.httpOptions;
-        const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/privateIpMode?${queryString}`, httpOptions)
-        );
-        return response;
-    }
-
-    async createContainer(body, options = {}) {
-        const queryString = getQueryStringFromOptions(options);
-        const httpOptions = options.httpOptions;
-        const response = (
-            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers?${queryString}`, {
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters?${queryString}`, {
                 "method": POST,
                 "data": body,
                 "headers": { "Content-Type": "application/json" },
@@ -76,17 +58,98 @@ class NetworkPeer {
         return response;
     }
 
-    async deleteContainerById(containerId, options = {}) {
+    async updateClustersByClusterName(clusterName, body, options = {}) {
         const queryString = getQueryStringFromOptions(options);
         const httpOptions = options.httpOptions;
-        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/containers/${containerId}?${queryString}`, {
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, {
+                "method": PATCH,
+                "data": body,
+                "headers": { "Content-Type": "application/json" },
+                ...httpOptions
+            })
+        );
+        return response;
+    }
+
+    async updateClustersByClusterName(clusterName, body, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/processArgs?${queryString}`, {
+                "method": PATCH,
+                "data": body,
+                "headers": { "Content-Type": "application/json" },
+                ...httpOptions
+            })
+        );
+        return response;
+    }
+
+    async deleteClustersByClusterName(clusterName, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}?${queryString}`, {
             "method": "DELETE",
             ...httpOptions
         });
         return true;
     }
 
+    async createClustersByClusterName(clusterName, body, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/restartPrimaries?${queryString}`, {
+                "method": POST,
+                "data": body,
+                "headers": { "Content-Type": "application/json" },
+                ...httpOptions
+            })
+        );
+        return response;
+    }
 
+    async getClustersByClusterName(clusterName, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/status?${queryString}`, httpOptions)
+        );
+        return response;
+    }
+
+    async createSampleDatasetLoadByClusterName(clusterName, body, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/sampleDatasetLoad/${clusterName}?${queryString}`, {
+                "method": POST,
+                "data": body,
+                "headers": { "Content-Type": "application/json" },
+                ...httpOptions
+            })
+        );
+        return response;
+    }
+
+    async getSampleDatasetLoadBySampleDatasetId(sampleDatasetId, options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/sampleDatasetLoad/${sampleDatasetId}?${queryString}`, httpOptions)
+        );
+        return response;
+    }
+
+    async getClustersByProvider(options = {}) {
+        const queryString = getQueryStringFromOptions(options);
+        const httpOptions = options.httpOptions;
+        const response = (
+            await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/provider/regions?${queryString}`, httpOptions)
+        );
+        return response;
+    }
 
 }
 

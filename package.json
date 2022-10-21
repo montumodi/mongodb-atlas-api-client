@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run depcheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
     "depcheck": "depcheck",
-    "test": "./node_modules/@hapi/lab/bin/lab -I @@any-promise/REGISTRATION ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json -r console -o stdout",
+    "test": "./node_modules/@hapi/lab/bin/lab -I '@@any-promise/REGISTRATION,Symbol(undici.globalDispatcher.1)' ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json -r console -o stdout",
     "lint": "./node_modules/.bin/eslint ./src --fix",
     "premajor": "npm run test",
     "major": "npm version major -m \"published to npm as v%s\" && git push --follow-tags && npm publish",

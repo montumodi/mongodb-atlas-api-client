@@ -10,6 +10,7 @@ export interface GetUserResponse {
     x509Type: string;
     groupId: string;
     roles: UserRoleConfig[];
+    scopes: UserScopeConfig[];
     password: string;
     username: string;
 }

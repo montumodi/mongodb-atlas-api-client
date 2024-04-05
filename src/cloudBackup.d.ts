@@ -25,9 +25,11 @@ export interface RestoreSnapshotJobComponent {
     replicaSetName: string
 }
 
+export type RestoreSnapshotJobComponents = RestoreSnapshotJobComponent[]
+
 export interface GetRestoreSnapshotJob {
     cancelled?: boolean;
-    components?: RestoreSnapshotJobComponent[];
+    components?: RestoreSnapshotJobComponents;
     deliveryType: 'automated' | 'download' | 'pointInTime';
     deliveryUrl?: string[];
     desiredTimestamp?: {
@@ -63,6 +65,6 @@ export type CreateRestoreSnapshotJobResponse = GetClusterResponse;
 export interface Cluster {
     getReplicaSetCloudBackup(clustername: ClusterName, snapshotId: string, options?: AtlasClientOptions): Promise<GetReplicaSetCloudBackup | AtlasError>;
     getAllReplicaSetCloudBackups(clustername: ClusterName, options?: AtlasClientOptions): Promise<GetAllReplicaSetCloudBackups | AtlasError>;
-    getRestoreSnapshotJob(clustername: ClusterName, restoreJobId: string): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
-    createRestoreSnapshotJob(clustername: ClusterName, body: RestoreSnapshotJobRequest): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
+    getRestoreSnapshotJob(clustername: ClusterName, restoreJobId: string, options?: AtlasClientOptions): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
+    createRestoreSnapshotJob(clustername: ClusterName, body: RestoreSnapshotJobRequest, options?: AtlasClientOptions): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
 }

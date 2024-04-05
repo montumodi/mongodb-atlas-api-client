@@ -1,6 +1,7 @@
 import {Alert} from './alert'
 import {AtlasUser} from './atlasUser';
 import {Cluster} from './cluster';
+import {CloudBackup} from './cloudBackup';
 import {CustomDbRole} from './customDbRole';
 import {Event} from './event';
 import {Organization} from './organization';
@@ -15,6 +16,7 @@ import {AtlasSearch} from './atlasSearch';
 export * from './alert'
 export * from './atlasUser';
 export * from './cluster';
+export * from './cloudBackup';
 export * from './customDbRole';
 export * from './event';
 export * from './organization';
@@ -66,6 +68,7 @@ export interface AtlasClient {
     projectAccesslist: ProjectAccesslist;
     customDbRole: CustomDbRole;
     cluster: Cluster;
+    cloudBackup: CloudBackup;
     event: Event;
     dataLake: DataLake;
     cloudProviderAccess: CloudProviderAccess;

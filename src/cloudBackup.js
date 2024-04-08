@@ -1,4 +1,4 @@
-const {getQueryStringFromOptions} = require("mongodb-atlas-api-client/src/helper");
+const {getQueryStringFromOptions} = require("./helper");
 
 class CloudBackup {
 
@@ -26,7 +26,7 @@ class CloudBackup {
     return response;
   }
 
-  async getRestoreSnapshotJob(clustername, restoreJobId, options = {}) {
+  async getSnapshotRestoreJob(clustername, restoreJobId, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
@@ -35,7 +35,7 @@ class CloudBackup {
     return response;
   }
 
-  async createRestoreSnapshotJob(clustername, body, options = {}) {
+  async createSnapshotRestoreJob(clustername, body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
@@ -51,4 +51,3 @@ class CloudBackup {
 }
 
 module.exports = CloudBackup;
-

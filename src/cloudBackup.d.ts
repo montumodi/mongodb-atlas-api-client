@@ -21,15 +21,15 @@ export interface GetReplicaSetCloudBackup {
 
 export type GetAllReplicaSetCloudBackups = AtlasResultsResponse<GetReplicaSetCloudBackup>;
 
-export interface RestoreSnapshotJobComponent {
+export interface SnapshotRestoreJobComponent {
     replicaSetName: string
 }
 
-export type RestoreSnapshotJobComponents = RestoreSnapshotJobComponent[]
+export type SnapshotRestoreJobComponents = SnapshotRestoreJobComponent[]
 
-export interface GetRestoreSnapshotJob {
+export interface GetSnapshotRestoreJob {
     cancelled?: boolean;
-    components?: RestoreSnapshotJobComponents;
+    components?: SnapshotRestoreJobComponents;
     deliveryType: 'automated' | 'download' | 'pointInTime';
     deliveryUrl?: string[];
     desiredTimestamp?: {
@@ -51,7 +51,7 @@ export interface GetRestoreSnapshotJob {
     timestamp?: string
 }
 
-export interface RestoreSnapshotJobRequest {
+export interface SnapshotRestoreJobRequest {
     deliveryType: 'automated' | 'download' | 'pointInTime';
     oplogInc?: number;
     oplogTs?: number;
@@ -60,11 +60,11 @@ export interface RestoreSnapshotJobRequest {
     targetClusterName?: string;
     targetGroupId?: string
 }
-export type CreateRestoreSnapshotJobResponse = GetClusterResponse;
+export type CreateSnapshotRestoreJobResponse = GetSnapshotRestoreJob;
 
-export interface Cluster {
+export interface CloudBackup {
     getReplicaSetCloudBackup(clustername: ClusterName, snapshotId: string, options?: AtlasClientOptions): Promise<GetReplicaSetCloudBackup | AtlasError>;
     getAllReplicaSetCloudBackups(clustername: ClusterName, options?: AtlasClientOptions): Promise<GetAllReplicaSetCloudBackups | AtlasError>;
-    getRestoreSnapshotJob(clustername: ClusterName, restoreJobId: string, options?: AtlasClientOptions): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
-    createRestoreSnapshotJob(clustername: ClusterName, body: RestoreSnapshotJobRequest, options?: AtlasClientOptions): Promise<CreateRestoreSnapshotJobResponse | AtlasError>
+    getSnapshotRestoreJob(clustername: ClusterName, restoreJobId: string, options?: AtlasClientOptions): Promise<CreateSnapshotRestoreJobResponse | AtlasError>
+    createSnapshotRestoreJob(clustername: ClusterName, body: SnapshotRestoreJobRequest, options?: AtlasClientOptions): Promise<CreateSnapshotRestoreJobResponse | AtlasError>
 }

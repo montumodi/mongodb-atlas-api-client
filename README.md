@@ -54,6 +54,7 @@ const response = await user.update("someUserName", body, options); // update use
 Following entities are currently supported
 
 - [User](#user)
+- [CloudBackup](#cloudbackup)
 - [Cluster](#cluster)
 - [CustomDbRole](#customdbrole)
 - [ProjectWhitelist](#projectwhitelist)
@@ -127,6 +128,59 @@ Function - Deletes the user name passed.
 | [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api. It can also include httpOptions which will be sent to `urllib`. More info can be found here - https://github.com/node-modules/urllib |
 
 More details - https://docs.atlas.mongodb.com/reference/api/database-users-delete-a-user/
+
+### CloudBackup
+
+### cloudBackup.getReplicaSetCloudBackup(clustername, snapshotId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of the specified snapshotId.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| snapshotId | <code>String</code> |  | Id of the snapshot for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api. It can also include httpOptions which will be sent to `urllib`. More info can be found here - https://github.com/node-modules/urllib |
+
+More details - https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v1/#tag/Cloud-Backups/operation/getReplicaSetBackup
+
+### cloudBackup.getAllReplicaSetCloudBackups(clustername, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of all snapshots of an specified clustername.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api. It can also include httpOptions which will be sent to `urllib`. More info can be found here - https://github.com/node-modules/urllib |
+
+More details - https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v1/#tag/Cloud-Backups/operation/listReplicaSetBackups
+
+### cloudBackup.getSnapshotRestoreJob(clustername, restoreJobId, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of all snapshots of an specified clustername.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| restoreJobId | <code>String</code> |  | snapshot restore job id for which details needs to be retrieved |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api. It can also include httpOptions which will be sent to `urllib`. More info can be found here - https://github.com/node-modules/urllib |
+
+More details - https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v1/#tag/Cloud-Backups/operation/getBackupRestoreJob
+
+### cloudBackup.createSnapshotRestoreJob(clustername, body, [options]) ⇒ <code>Promise</code>
+Function - Returns the details of all snapshots of an specified clustername.
+
+**Returns**: <code>Promise</code> - - promise which resolves on success and rejects on error  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| clustername | <code>String</code> |  | name of the cluster for which details needs to be retrieved |
+| body | <code>Object</code> |  | Body which has details for snapshot restore job which needs to be created |
+| [options] | <code>Object</code> | <code>{}</code> | Optional object containing extra query strings which will be passed to atlas api. It can also include httpOptions which will be sent to `urllib`. More info can be found here - https://github.com/node-modules/urllib |
+
+More details - https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v1/#tag/Cloud-Backups/operation/createBackupRestoreJob
 
 ### Cluster
 

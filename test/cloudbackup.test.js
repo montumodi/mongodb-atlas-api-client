@@ -29,7 +29,7 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
       const expectedRequest = nock(baseUrl)
         .get(`/groups/${projectId}/clusters/mycluster/backup/snapshots/mysnapshot?key1=value1&key2=value2`)
         .reply(200, {"replicaSetName": "mycluster"});
-      const result = await client.cloudBackup.getReplicaSetCloudBackup("mycluster","mysnapshot",{"key1": "value1", "key2": "value2"});
+      const result = await client.cloudBackup.getReplicaSetCloudBackup("mycluster", "mysnapshot", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"replicaSetName": "mycluster"});
       expect(expectedRequest.isDone()).to.be.true();
     });
@@ -40,7 +40,7 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
       const expectedRequest = nock(baseUrl)
         .get(`/groups/${projectId}/clusters/mycluster/backup/snapshots?key1=value1&key2=value2`)
         .reply(200, [{"replicaSetName": "mycluster"}]);
-      const result = await client.cloudBackup.getAllReplicaSetCloudBackups("mycluster",{"key1": "value1", "key2": "value2"});
+      const result = await client.cloudBackup.getAllReplicaSetCloudBackups("mycluster", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"replicaSetName": "mycluster"}]);
       expect(expectedRequest.isDone()).to.be.true();
     });
@@ -51,7 +51,7 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
       const expectedRequest = nock(baseUrl)
         .get(`/groups/${projectId}/clusters/mycluster/backup/restoreJobs/myrestorejob?key1=value1&key2=value2`)
         .reply(200, {"id": "myrestorejob"});
-      const result = await client.cloudBackup.getSnapshotRestoreJob("mycluster","myrestorejob",{"key1": "value1", "key2": "value2"});
+      const result = await client.cloudBackup.getSnapshotRestoreJob("mycluster", "myrestorejob", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"id": "myrestorejob"});
       expect(expectedRequest.isDone()).to.be.true();
     });
@@ -62,7 +62,7 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
       const expectedRequest = nock(baseUrl)
         .post(`/groups/${projectId}/clusters/mycluster/backup/restoreJobs?key1=value1&key2=value2`)
         .reply(200, {"id": "myrestorejob"});
-      const result = await client.cloudBackup.createSnapshotRestoreJob("mycluster",{"body": "value"},{"key1": "value1", "key2": "value2"});
+      const result = await client.cloudBackup.createSnapshotRestoreJob("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"id": "myrestorejob"});
       expect(expectedRequest.isDone()).to.be.true();
     });

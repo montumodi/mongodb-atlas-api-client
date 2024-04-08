@@ -1,4 +1,5 @@
 const User = require("./user");
+const CloudBackup = require("./cloudBackup");
 const Cluster = require("./cluster");
 const CustomDbRole = require("./customDbRole");
 const ProjectWhitelist = require("./projectWhitelist");
@@ -30,6 +31,7 @@ function getMongodbAtlasApiClient(options) {
   const client = new HttpClient(urllibClient, options.publicKey, options.privateKey);
   const user = new User(client, options.baseUrl, options.projectId);
   const cluster = new Cluster(client, options.baseUrl, options.projectId);
+  const cloudBackup = new CloudBackup(client, options.baseUrl, options.projectId);
   const customDbRole = new CustomDbRole(client, options.baseUrl, options.projectId);
   const projectWhitelist = new ProjectWhitelist(client, options.baseUrl, options.projectId);
   const projectAccesslist = new ProjectAccesslist(client, options.baseUrl, options.projectId);
@@ -45,6 +47,7 @@ function getMongodbAtlasApiClient(options) {
   const functions = {};
   functions.user = getFunctions(user);
   functions.cluster = getFunctions(cluster);
+  functions.cloudBackup = getFunctions(cloudBackup);
   functions.customDbRole = getFunctions(customDbRole);
   functions.projectWhitelist = getFunctions(projectWhitelist);
   functions.projectAccesslist = getFunctions(projectAccesslist);

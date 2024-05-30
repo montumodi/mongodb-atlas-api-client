@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class Organization {
 
   constructor(client, baseUrl) {
@@ -82,5 +81,5 @@ class Organization {
   }
 }
 
-module.exports = Organization;
+export default Organization;
 

@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class Event {
 
   constructor(client, baseUrl, projectId) {
@@ -46,5 +45,5 @@ class Event {
 
 }
 
-module.exports = Event;
+export default Event;
 

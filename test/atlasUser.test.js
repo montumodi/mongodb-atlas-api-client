@@ -1,10 +1,12 @@
-const {describe, it} = exports.lab = require("@hapi/lab").script();
-const {expect} = require("@hapi/code");
-const nock = require("nock");
-const getClient = require("../src");
-const AtlasUser = require("../src/atlasUser");
-const HttpClient = require("../src/httpClient");
-const sinon = require("sinon");
+import {script} from "@hapi/lab";
+export const lab = script();
+const {describe, it} = lab;
+import {expect} from "@hapi/code";
+import nock from "nock";
+import getClient from "../src/index.js";
+import AtlasUser from "../src/atlasUser.js";
+import HttpClient from "../src/httpClient.js";
+import {stub} from "sinon";
 
 const baseUrl = "http://dummyBaseUrl";
 const projectId = "dummyProjectId";
@@ -87,7 +89,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
 describe("AtlasUser Class", () => {
 
   const mockRequest = {
-    "request": sinon.stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
+    "request": stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
   };
   const mockHttpClient = new HttpClient(mockRequest, "dummyPublicKey", "dummyPrivateKey");
 

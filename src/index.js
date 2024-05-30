@@ -1,19 +1,19 @@
-const User = require("./user");
-const CloudBackup = require("./cloudBackup");
-const Cluster = require("./cluster");
-const CustomDbRole = require("./customDbRole");
-const ProjectWhitelist = require("./projectWhitelist");
-const ProjectAccesslist = require("./projectAccesslist");
-const Project = require("./project");
-const Organization = require("./organization");
-const AtlasUser = require("./atlasUser");
-const Event = require("./event");
-const Alert = require("./alert");
-const DataLake = require("./dataLake");
-const CloudProviderAccess = require("./cloudProviderAccess");
-const AtlasSearch = require("./atlasSearch");
-const urllibClient = require("urllib");
-const HttpClient = require("./httpClient");
+import User from "./user.js";
+import CloudBackup from "./cloudBackup.js";
+import Cluster from "./cluster.js";
+import CustomDbRole from "./customDbRole.js";
+import ProjectWhitelist from "./projectWhitelist.js";
+import ProjectAccesslist from "./projectAccesslist.js";
+import Project from "./project.js";
+import Organization from "./organization.js";
+import AtlasUser from "./atlasUser.js";
+import Event from "./event.js";
+import Alert from "./alert.js";
+import DataLake from "./dataLake.js";
+import CloudProviderAccess from "./cloudProviderAccess.js";
+import AtlasSearch from "./atlasSearch.js";
+import urllibClient from "urllib";
+import HttpClient from "./httpClient.js";
 
 function getFunctions(instance) {
   const functions = {};
@@ -63,5 +63,5 @@ function getMongodbAtlasApiClient(options) {
   return functions;
 }
 
-module.exports = getMongodbAtlasApiClient;
+export default getMongodbAtlasApiClient;
 

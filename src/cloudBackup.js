@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class CloudBackup {
 
   constructor(client, baseUrl, projectId) {
@@ -50,4 +49,4 @@ class CloudBackup {
   }
 }
 
-module.exports = CloudBackup;
+export default CloudBackup;

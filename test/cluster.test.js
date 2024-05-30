@@ -1,7 +1,9 @@
-const {describe, it} = exports.lab = require("@hapi/lab").script();
-const {expect} = require("@hapi/code");
-const nock = require("nock");
-const getClient = require("../src");
+import {script} from "@hapi/lab";
+export const lab = script();
+const {describe, it} = lab;
+import {expect} from "@hapi/code";
+import nock from "nock";
+import getClient from "../src/index.js";
 
 const baseUrl = "http://dummyBaseUrl";
 const projectId = "dummyProjectId";

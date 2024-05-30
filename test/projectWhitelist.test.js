@@ -73,8 +73,8 @@ describe("Mongo Atlas Api Client - Project Whitelist", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/whitelist?key1=value1&key2=value2`,
-        "method": "PATCH",
-        "body": {"body": "value"}
+        "method": "POST",
+        "data": {"body": "value"}
       })
         .reply(200, [{"projectWhitelist": "name"}]);
       const result = await client.projectWhitelist.update({"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -88,7 +88,7 @@ describe("Mongo Atlas Api Client - Project Whitelist", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/whitelist?key1=value1&key2=value2`,
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"projectWhitelist": "name"}]);
       const result = await client.projectWhitelist.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

@@ -60,7 +60,7 @@ describe("Mongo Atlas Api Client - cloudProviderAccess", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/cloudProviderAccess/roleId?key1=value1&key2=value2`,
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cloudProviderAccess": "name"}]);
       const result = await client.cloudProviderAccess.update("roleId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -74,7 +74,7 @@ describe("Mongo Atlas Api Client - cloudProviderAccess", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/cloudProviderAccess?key1=value1&key2=value2`,
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cloudProviderAccess": "name"}]);
       const result = await client.cloudProviderAccess.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

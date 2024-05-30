@@ -73,8 +73,8 @@ describe("Mongo Atlas Api Client - Project Accesslist", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/accessList?key1=value1&key2=value2`,
-        "method": "PATCH",
-        "body": {"body": "value"}
+        "method": "POST",
+        "data": {"body": "value"}
       })
         .reply(200, [{"projectAccesslist": "name"}]);
       const result = await client.projectAccesslist.update({"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -88,7 +88,7 @@ describe("Mongo Atlas Api Client - Project Accesslist", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/accessList?key1=value1&key2=value2`,
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"projectAccesslist": "name"}]);
       const result = await client.projectAccesslist.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

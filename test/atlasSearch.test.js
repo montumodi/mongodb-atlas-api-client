@@ -85,7 +85,7 @@ describe("Mongo Atlas Api Client - atlasSearch", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/indexes/indexId?key1=value1&key2=value2`,
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.update("mycluster", "indexId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);
@@ -97,7 +97,7 @@ describe("Mongo Atlas Api Client - atlasSearch", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/analyzers?key1=value1&key2=value2`,
         "method": "PUT",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.upsertAnalyzer("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);
@@ -109,7 +109,7 @@ describe("Mongo Atlas Api Client - atlasSearch", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/indexes?key1=value1&key2=value2`,
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.create("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);

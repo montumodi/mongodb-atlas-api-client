@@ -85,7 +85,7 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/backup/restoreJobs?key1=value1&key2=value2`,
         "method": "post",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, {"id": "myrestorejob"});
       const result = await client.cloudBackup.createSnapshotRestoreJob("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});

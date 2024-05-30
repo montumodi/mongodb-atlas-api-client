@@ -18,7 +18,7 @@ const client = getClient({
   "projectId": projectId
 });
 
-describe.only("Mongo Atlas Api Client - Alert", () => {
+describe("Mongo Atlas Api Client - Alert", () => {
 
   let mockAgent;
   let mockPool;
@@ -72,7 +72,7 @@ describe.only("Mongo Atlas Api Client - Alert", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/alerts/myAlertId?key1=value1&key2=value2`,
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"alert": "name"}]);
       const result = await client.alert.acknowledge("myAlertId", {"body": "value"}, {"key1": "value1", "key2": "value2"});

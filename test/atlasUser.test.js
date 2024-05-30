@@ -86,7 +86,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
       mockPool.intercept({
         "path": "/users/someId?key1=value1&key2=value2",
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.update("someId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -99,7 +99,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
       mockPool.intercept({
         "path": "/users?key1=value1&key2=value2",
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

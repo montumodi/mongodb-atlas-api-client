@@ -90,7 +90,7 @@ describe("Mongo Atlas Api Client - Cluster", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/myCluster?key1=value1&key2=value2`,
         "method": "patch",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cluster": "name"}]);
       const result = await client.cluster.update("myCluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -104,7 +104,7 @@ describe("Mongo Atlas Api Client - Cluster", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/myCluster/processArgs?key1=value1&key2=value2`,
         "method": "patch",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cluster": "name"}]);
       const result = await client.cluster.updateAdvanceConfiguration("myCluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -118,7 +118,7 @@ describe("Mongo Atlas Api Client - Cluster", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters?key1=value1&key2=value2`,
         "method": "post",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cluster": "name"}]);
       const result = await client.cluster.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -132,7 +132,7 @@ describe("Mongo Atlas Api Client - Cluster", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/restartPrimaries?key1=value1&key2=value2`,
         "method": "post",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"cluster": "name"}]);
       const result = await client.cluster.testPrimaryFailOver("mycluster", {"key1": "value1", "key2": "value2"});

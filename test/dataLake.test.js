@@ -89,7 +89,7 @@ describe("Mongo Atlas Api Client - dataLake", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`,
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"datalake": "name"}]);
       const result = await client.dataLake.update("mydataLakename", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -103,7 +103,7 @@ describe("Mongo Atlas Api Client - dataLake", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/dataLakes?key1=value1&key2=value2`,
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"dataLakes": "name"}]);
       const result = await client.dataLake.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

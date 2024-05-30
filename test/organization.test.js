@@ -87,7 +87,7 @@ describe("Mongo Atlas Api Client - Organization", () => {
       mockPool.intercept({
         "path": "/orgs/orgId?key1=value1&key2=value2",
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"organization": "name"}]);
       const result = await client.organization.rename("orgId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -127,7 +127,7 @@ describe("Mongo Atlas Api Client - Organization", () => {
       mockPool.intercept({
         "path": "/orgs/orgId/invites?key1=value1&key2=value2",
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"organization": "name"}]);
       const result = await client.organization.invite("orgId", {"body": "value"}, {"key1": "value1", "key2": "value2"});

@@ -74,7 +74,7 @@ describe("Mongo Atlas Api Client - Custom Db Role", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`,
         "method": "PATCH",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"customDbRole": "name"}]);
       const result = await client.customDbRole.update("rolename", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -101,7 +101,7 @@ describe("Mongo Atlas Api Client - Custom Db Role", () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/customDBRoles/roles?key1=value1&key2=value2`,
         "method": "post",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"customDbRole": "name"}]);
       const result = await client.customDbRole.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

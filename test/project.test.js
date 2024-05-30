@@ -101,7 +101,7 @@ describe("Mongo Atlas Api Client - Project", () => {
       mockPool.intercept({
         "path": "/groups/projectId/teams?key1=value1&key2=value2",
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"project": "name"}]);
       const result = await client.project.assignTeams("projectId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
@@ -115,7 +115,7 @@ describe("Mongo Atlas Api Client - Project", () => {
       mockPool.intercept({
         "path": "/groups?key1=value1&key2=value2",
         "method": "POST",
-        "body": {"body": "value"}
+        "data": {"body": "value"}
       })
         .reply(200, [{"project": "name"}]);
       const result = await client.project.create({"body": "value"}, {"key1": "value1", "key2": "value2"});

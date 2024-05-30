@@ -1,11 +1,12 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
-import nock from "nock";
 import getClient from "../src/index.js";
 
-const baseUrl = "http://dummyBaseUrl";
+import {MockAgent, setGlobalDispatcher} from "urllib";
+
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -16,6 +17,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - Event", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When event is exported from index", () => {
     it("should export event functions", async () => {
@@ -28,45 +44,53 @@ describe("Mongo Atlas Api Client - Event", () => {
 
   describe("When get is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/events/myeventId?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/events/myeventId?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, {"event": "name"});
       const result = await client.event.get("myeventId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"event": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/events?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/events?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, [{"event": "name"}]);
       const result = await client.event.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"event": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getByOrganizationId is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/orgs/myOrgId/events/myeventId?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/orgs/myOrgId/events/myeventId?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, {"event": "name"});
       const result = await client.event.getByOrganizationId("myOrgId", "myeventId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"event": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getAllByOrganizationId is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/orgs/myOrgId/events?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/orgs/myOrgId/events?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, [{"event": "name"}]);
       const result = await client.event.getAllByOrganizationId("myOrgId", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"event": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 });

@@ -1,11 +1,12 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
-import nock from "nock";
 import getClient from "../src/index.js";
 
-const baseUrl = "http://dummyBaseUrl";
+import {MockAgent, setGlobalDispatcher} from "urllib";
+
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -16,6 +17,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - Custom Db Role", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When customDbRole is exported from index", () => {
     it("should export customDbRole functions", async () => {
@@ -29,56 +45,68 @@ describe("Mongo Atlas Api Client - Custom Db Role", () => {
 
   describe("When get is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, {"customDbRole": "name"});
       const result = await client.customDbRole.get("rolename", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"customDbRole": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/customDBRoles/roles?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/customDBRoles/roles?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, [{"customDbRole": "name"}]);
       const result = await client.customDbRole.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"customDbRole": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .patch(`/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`,
+        "method": "PATCH",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"customDbRole": "name"}]);
       const result = await client.customDbRole.update("rolename", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"customDbRole": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When delete is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .delete(`/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/customDBRoles/roles/rolename?key1=value1&key2=value2`,
+        "method": "delete"
+      })
         .reply(200, true);
       const result = await client.customDbRole.delete("rolename", {"key1": "value1", "key2": "value2"});
       expect(result).to.be.true();
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .post(`/groups/${projectId}/customDBRoles/roles?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/customDBRoles/roles?key1=value1&key2=value2`,
+        "method": "post",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"customDbRole": "name"}]);
       const result = await client.customDbRole.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"customDbRole": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 });

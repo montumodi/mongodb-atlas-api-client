@@ -1,14 +1,14 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
-import nock from "nock";
 import getClient from "../src/index.js";
 import AtlasUser from "../src/atlasUser.js";
 import HttpClient from "../src/httpClient.js";
 import {stub} from "sinon";
+import {MockAgent, setGlobalDispatcher} from "urllib";
 
-const baseUrl = "http://dummyBaseUrl";
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -19,6 +19,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - Atlas User", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When atlasUser is exported from index", () => {
     it("should export atlasUser functions", async () => {
@@ -32,56 +47,63 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
 
   describe("When getByName is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/users/byName/myuser?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/byName/myuser?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, {"user": "name"});
       const result = await client.atlasUser.getByName("myuser", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"user": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When getById is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/users/someid?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/someid?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, {"user": "name"});
       const result = await client.atlasUser.getById("someid", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"user": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/users?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/users?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .patch("/users/someId?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/someId?key1=value1&key2=value2",
+        "method": "PATCH",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.update("someId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .post("/users?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users?key1=value1&key2=value2",
+        "method": "POST",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 });

@@ -1,6 +1,6 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
 import getClient from "../src/index.js";
 import Alert from "../src/alert.js";
@@ -8,14 +8,8 @@ import HttpClient from "../src/httpClient.js";
 import {stub} from "sinon";
 import {MockAgent, setGlobalDispatcher} from "urllib";
 
-const mockAgent = new MockAgent();
-setGlobalDispatcher(mockAgent);
-
 const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
-
-const mockPool = mockAgent.get(baseUrl);
-
 
 const client = getClient({
   "publicKey": "dummuyPublicKey",
@@ -25,6 +19,21 @@ const client = getClient({
 });
 
 describe.only("Mongo Atlas Api Client - Alert", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When alert is exported from index", () => {
     it("should export alert functions", async () => {
@@ -62,7 +71,8 @@ describe.only("Mongo Atlas Api Client - Alert", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/alerts/myAlertId?key1=value1&key2=value2`,
-        "method": "PATCH"
+        "method": "PATCH",
+        "body": {"body": "value"}
       })
         .reply(200, [{"alert": "name"}]);
       const result = await client.alert.acknowledge("myAlertId", {"body": "value"}, {"key1": "value1", "key2": "value2"});

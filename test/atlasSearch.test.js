@@ -1,6 +1,6 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
 import getClient from "../src/index.js";
 import AtlasSearch from "../src/atlasSearch.js";
@@ -8,12 +8,8 @@ import HttpClient from "../src/httpClient.js";
 import {stub} from "sinon";
 import {MockAgent, setGlobalDispatcher} from "urllib";
 
-const mockAgent = new MockAgent();
-setGlobalDispatcher(mockAgent);
-
 const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
-const mockPool = mockAgent.get(baseUrl);
 
 const client = getClient({
   "publicKey": "dummuyPublicKey",
@@ -22,7 +18,22 @@ const client = getClient({
   "projectId": projectId
 });
 
-describe.only("Mongo Atlas Api Client - atlasSearch", () => {
+describe("Mongo Atlas Api Client - atlasSearch", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When atlasSearch is exported from index", () => {
     it("should export atlasSearch functions", async () => {
@@ -73,7 +84,8 @@ describe.only("Mongo Atlas Api Client - atlasSearch", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/indexes/indexId?key1=value1&key2=value2`,
-        "method": "PATCH"
+        "method": "PATCH",
+        "body": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.update("mycluster", "indexId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);
@@ -84,7 +96,8 @@ describe.only("Mongo Atlas Api Client - atlasSearch", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/analyzers?key1=value1&key2=value2`,
-        "method": "PUT"
+        "method": "PUT",
+        "body": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.upsertAnalyzer("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);
@@ -95,7 +108,8 @@ describe.only("Mongo Atlas Api Client - atlasSearch", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster/fts/indexes?key1=value1&key2=value2`,
-        "method": "POST"
+        "method": "POST",
+        "body": {"body": "value"}
       }).reply(200, [{"atlasSearch": "name"}]);
       const result = await client.atlasSearch.create("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"atlasSearch": "name"}]);

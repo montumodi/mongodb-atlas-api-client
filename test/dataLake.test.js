@@ -1,12 +1,13 @@
 import {script} from "@hapi/lab";
 export const lab = script();
-const {describe, it} = lab;
+const {describe, it, afterEach, before, beforeEach} = lab;
 import {expect} from "@hapi/code";
-import nock from "nock";
 import getClient from "../src/index.js";
 import {Buffer} from "buffer";
 
-const baseUrl = "http://dummyBaseUrl";
+import {MockAgent, setGlobalDispatcher} from "urllib";
+
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -17,6 +18,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - dataLake", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When dataLake is exported from index", () => {
     it("should export dataLake functions", async () => {
@@ -31,67 +47,81 @@ describe("Mongo Atlas Api Client - dataLake", () => {
 
   describe("When get is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`,
+        "method": "GET"
+      })
         .reply(200, {"datalake": "name"});
       const result = await client.dataLake.get("mydataLakename", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"datalake": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getLogsStream is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/dataLakes/mydataLakename/queryLogs.gz?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes/mydataLakename/queryLogs.gz?key1=value1&key2=value2`,
+        "method": "GET"
+      })
         .reply(200, Buffer.from("Some test string", "utf8"), {"headers": {"accept": "application/gzip"}});
       const result = await client.dataLake.getLogsStream("mydataLakename", {"key1": "value1", "key2": "value2"});
       expect(result.pipe).to.exist();
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/dataLakes?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes?key1=value1&key2=value2`,
+        "method": "GET"
+      })
         .reply(200, [{"datalake": "name"}]);
       const result = await client.dataLake.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"datalake": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .patch(`/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`,
+        "method": "PATCH",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"datalake": "name"}]);
       const result = await client.dataLake.update("mydataLakename", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"datalake": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .post(`/groups/${projectId}/dataLakes?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes?key1=value1&key2=value2`,
+        "method": "POST",
+        "body": {"body": "value"}
+      })
         .reply(200, [{"dataLakes": "name"}]);
       const result = await client.dataLake.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"dataLakes": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When delete is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .delete(`/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/dataLakes/mydataLakename?key1=value1&key2=value2`,
+        "method": "DELETE"
+      })
         .reply(200, true);
       const result = await client.dataLake.delete("mydataLakename", {"key1": "value1", "key2": "value2"});
       expect(result).to.be.true();
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 });

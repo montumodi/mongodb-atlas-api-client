@@ -1,3 +1,5 @@
+import {URLSearchParams} from "url";
+
 function getQueryStringFromOptions(options = {}) {
   /* eslint-disable no-unused-vars */
   const {httpOptions, ...mongoQueryStringOptions} = options;
@@ -6,6 +8,4 @@ function getQueryStringFromOptions(options = {}) {
   return queryString;
 }
 
-module.exports = {
-  getQueryStringFromOptions
-};
+export default getQueryStringFromOptions;

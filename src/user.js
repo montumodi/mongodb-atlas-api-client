@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class User {
 
   constructor(client, baseUrl, projectId) {
@@ -65,5 +64,5 @@ class User {
   }
 }
 
-module.exports = User;
+export default User;
 

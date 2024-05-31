@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class ProjectWhitelist {
 
   constructor(client, baseUrl, projectId) {
@@ -65,5 +64,5 @@ class ProjectWhitelist {
   }
 }
 
-module.exports = ProjectWhitelist;
+export default ProjectWhitelist;
 

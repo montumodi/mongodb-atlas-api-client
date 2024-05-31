@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class AtlasSearch {
 
   constructor(client, baseUrl, projectId) {
@@ -88,5 +87,5 @@ class AtlasSearch {
   }
 }
 
-module.exports = AtlasSearch;
+export default AtlasSearch;
 

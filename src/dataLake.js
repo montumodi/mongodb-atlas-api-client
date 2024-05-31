@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class DataLake {
 
   constructor(client, baseUrl, projectId) {
@@ -75,5 +74,5 @@ class DataLake {
   }
 }
 
-module.exports = DataLake;
+export default DataLake;
 

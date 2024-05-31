@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class CustomDbRole {
 
   constructor(client, baseUrl, projectId) {
@@ -65,5 +64,5 @@ class CustomDbRole {
   }
 }
 
-module.exports = CustomDbRole;
+export default CustomDbRole;
 

@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class ProjectAccesslist {
 
   constructor(client, baseUrl, projectId) {
@@ -65,5 +64,5 @@ class ProjectAccesslist {
   }
 }
 
-module.exports = ProjectAccesslist;
+export default ProjectAccesslist;
 

@@ -1,4 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
+import getQueryStringFromOptions from "./helper.js";
 
 class Alert {
 
@@ -41,5 +41,5 @@ class Alert {
   }
 }
 
-module.exports = Alert;
+export default Alert;
 

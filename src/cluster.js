@@ -1,5 +1,4 @@
-const {getQueryStringFromOptions} = require("./helper");
-
+import getQueryStringFromOptions from "./helper.js";
 class Cluster {
 
   constructor(client, baseUrl, projectId) {
@@ -100,5 +99,5 @@ class Cluster {
   }
 }
 
-module.exports = Cluster;
+export default Cluster;
 

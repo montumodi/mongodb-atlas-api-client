@@ -9,9 +9,7 @@ class Cluster {
   }
 
   async get(clustername, options = {}) {
-    console.log("herrrrrr",  this.client_);
     const queryString = getQueryStringFromOptions(options);
-    console.log(queryString);
     const httpOptions = options.httpOptions;
     const response = (
       await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clustername}?${queryString}`, httpOptions)

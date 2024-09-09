@@ -1,6 +1,6 @@
 const {describe, it} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
-const getQueryStringFromOptions  = require('../src/helper.js');
+const {getQueryStringFromOptions}  = require('../src/helper.js');
 
 describe("Helper Methods", () => {
 

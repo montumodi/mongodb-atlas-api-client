@@ -6,7 +6,7 @@ const HttpClient = require('../src/httpClient.js');
 const {stub} = require("sinon");
 const {MockAgent, setGlobalDispatcher} = require('urllib');
 
-const baseUrl = "http://dummyBaseUrl";
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -116,4 +116,5 @@ describe("Alert Class", () => {
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts/alertId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
   });
+
 });

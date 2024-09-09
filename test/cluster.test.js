@@ -3,7 +3,7 @@ const {expect} = require('@hapi/code');
 const getClient = require('../src/index.js');
 const {MockAgent, setGlobalDispatcher} = require('urllib');
 
-const baseUrl = "http://dummyBaseUrl";
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -43,19 +43,16 @@ describe("Mongo Atlas Api Client - Cluster", () => {
     });
   });
 
-  describe.only("When get is called with querystring parameters", () => {
+  describe("When get is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({
         "path": `/groups/${projectId}/clusters/mycluster?key1=value1&key2=value2`,
         "method": "get"
       })
         .reply(200, {"cluster": "name"});
-        try {
-          const result = await client.cluster.get("mycluster", {"key1": "value1", "key2": "value2"});
-          expect(result).to.equal({"cluster": "name"});
-        } catch (error) {
-          console.error(error);
-        }
+      const result = await client.cluster.get("mycluster", {"key1": "value1", "key2": "value2"});
+      expect(result).to.equal({"cluster": "name"});
+
     });
   });
 

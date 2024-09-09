@@ -1,9 +1,9 @@
-const {describe, it} = exports.lab = require("@hapi/lab").script();
-const {expect} = require("@hapi/code");
-const nock = require("nock");
-const getClient = require("../src");
+const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {expect} = require('@hapi/code');
+const getClient = require('../src/index.js');
+const {MockAgent, setGlobalDispatcher} = require('urllib');
 
-const baseUrl = "http://dummyBaseUrl";
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -14,6 +14,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - CloudBackup", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When cluster is exported from index", () => {
     it("should export cluster functions", async () => {
@@ -26,45 +41,54 @@ describe("Mongo Atlas Api Client - CloudBackup", () => {
 
   describe("When getReplicaSetCloudBackup is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/clusters/mycluster/backup/snapshots/mysnapshot?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/clusters/mycluster/backup/snapshots/mysnapshot?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, {"replicaSetName": "mycluster"});
       const result = await client.cloudBackup.getReplicaSetCloudBackup("mycluster", "mysnapshot", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"replicaSetName": "mycluster"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getAllReplicaSetCloudBackups is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/clusters/mycluster/backup/snapshots?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/clusters/mycluster/backup/snapshots?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, [{"replicaSetName": "mycluster"}]);
       const result = await client.cloudBackup.getAllReplicaSetCloudBackups("mycluster", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"replicaSetName": "mycluster"}]);
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When getSnapshotRestoreJob is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/clusters/mycluster/backup/restoreJobs/myrestorejob?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/clusters/mycluster/backup/restoreJobs/myrestorejob?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, {"id": "myrestorejob"});
       const result = await client.cloudBackup.getSnapshotRestoreJob("mycluster", "myrestorejob", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"id": "myrestorejob"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 
   describe("When createSnapshotRestoreJob is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .post(`/groups/${projectId}/clusters/mycluster/backup/restoreJobs?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/clusters/mycluster/backup/restoreJobs?key1=value1&key2=value2`,
+        "method": "post",
+        "data": {"body": "value"}
+      })
         .reply(200, {"id": "myrestorejob"});
       const result = await client.cloudBackup.createSnapshotRestoreJob("mycluster", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"id": "myrestorejob"});
-      expect(expectedRequest.isDone()).to.be.true();
+
     });
   });
 });

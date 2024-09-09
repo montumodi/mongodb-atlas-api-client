@@ -1,12 +1,12 @@
-const {describe, it} = exports.lab = require("@hapi/lab").script();
-const {expect} = require("@hapi/code");
-const nock = require("nock");
-const getClient = require("../src");
-const AtlasUser = require("../src/atlasUser");
-const HttpClient = require("../src/httpClient");
-const sinon = require("sinon");
+const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {expect} = require('@hapi/code');
+const getClient = require('../src/index.js');
+const AtlasUser = require('../src/atlasUser.js');
+const HttpClient = require('../src/httpClient.js');
+const {stub} = require("sinon");
+const {MockAgent, setGlobalDispatcher} = require('urllib');
 
-const baseUrl = "http://dummyBaseUrl";
+const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
 
 const client = getClient({
@@ -17,6 +17,21 @@ const client = getClient({
 });
 
 describe("Mongo Atlas Api Client - Atlas User", () => {
+
+  let mockAgent;
+  let mockPool;
+  before(() => {
+    mockAgent = new MockAgent();
+    setGlobalDispatcher(mockAgent);
+  });
+
+  beforeEach(() => {
+    mockPool = mockAgent.get(baseUrl);
+  });
+
+  afterEach(() => {
+    mockAgent.assertNoPendingInterceptors();
+  });
 
   describe("When atlasUser is exported from index", () => {
     it("should export atlasUser functions", async () => {
@@ -30,56 +45,63 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
 
   describe("When getByName is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/users/byName/myuser?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/byName/myuser?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, {"user": "name"});
       const result = await client.atlasUser.getByName("myuser", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"user": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When getById is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get("/users/someid?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/someid?key1=value1&key2=value2",
+        "method": "get"
+      })
         .reply(200, {"user": "name"});
       const result = await client.atlasUser.getById("someid", {"key1": "value1", "key2": "value2"});
       expect(result).to.equal({"user": "name"});
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .get(`/groups/${projectId}/users?key1=value1&key2=value2`)
+      mockPool.intercept({
+        "path": `/groups/${projectId}/users?key1=value1&key2=value2`,
+        "method": "get"
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When update is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .patch("/users/someId?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users/someId?key1=value1&key2=value2",
+        "method": "PATCH",
+        "data": {"body": "value"}
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.update("someId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
-      const expectedRequest = nock(baseUrl)
-        .post("/users?key1=value1&key2=value2")
+      mockPool.intercept({
+        "path": "/users?key1=value1&key2=value2",
+        "method": "POST",
+        "data": {"body": "value"}
+      })
         .reply(200, [{"user": "name"}]);
       const result = await client.atlasUser.create({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"user": "name"}]);
-      expect(expectedRequest.isDone()).to.be.true();
     });
   });
 });
@@ -87,7 +109,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
 describe("AtlasUser Class", () => {
 
   const mockRequest = {
-    "request": sinon.stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
+    "request": stub().returns(new Promise(resolve => resolve({"data": "some test data"})))
   };
   const mockHttpClient = new HttpClient(mockRequest, "dummyPublicKey", "dummyPrivateKey");
 

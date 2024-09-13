@@ -44,6 +44,6 @@
     "sinon": "^18.0.0"
   },
   "dependencies": {
-    "urllib": "^4.2.0"
+    "urllib": "^4.2.1"
   }
 }

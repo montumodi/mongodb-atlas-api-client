@@ -13,6 +13,19 @@ A mongdb atlas api client for nodejs.
 npm install mongodb-atlas-api-client
 ```
 
+## MCP Server Integration
+
+This package is also available as a Model Context Protocol (MCP) server that provides AI assistants with direct access to MongoDB Atlas APIs. The MCP server enables AI agents to manage Atlas resources like clusters, users, and databases through natural language interactions.
+
+### MCP Server Package
+
+The MCP server is available as a separate package:
+
+- **Package**: [mongodb-atlas-mcp-server](https://www.npmjs.com/package/mongodb-atlas-mcp-server)
+- **Documentation**: Full setup and configuration instructions available on npm
+
+The MCP server wraps this MongoDB Atlas API client and exposes Atlas operations through the Model Context Protocol, making it easy for AI assistants to interact with your MongoDB Atlas infrastructure.
+
 ## Getting Started
 
 The basic syntax is

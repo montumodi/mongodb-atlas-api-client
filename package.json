@@ -36,14 +36,14 @@
   },
   "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
+    "@eslint/js": "^9.38.0",
     "@hapi/code": "^9.0.3",
-    "@hapi/lab": "^25.3.1",
+    "@hapi/lab": "^25.3.2",
     "depcheck": "^1.4.7",
-    "eslint": "^9.10.0",
-    "sinon": "^18.0.0"
+    "eslint": "^9.38.0",
+    "sinon": "^21.0.0"
   },
   "dependencies": {
-    "urllib": "^4.2.0"
+    "urllib": "^4.8.2"
   }
 }

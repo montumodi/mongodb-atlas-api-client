@@ -28,7 +28,7 @@ function getFunctions(instance) {
 
 function getMongodbAtlasApiClient(options) {
 
-  const client = new HttpClient(urllibClient, options.publicKey, options.privateKey);
+  const client = new HttpClient(urllibClient, options.publicKey, options.privateKey, options.headers);
   const user = new User(client, options.baseUrl, options.projectId);
   const cluster = new Cluster(client, options.baseUrl, options.projectId);
   const cloudBackup = new CloudBackup(client, options.baseUrl, options.projectId);

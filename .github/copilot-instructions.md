@@ -61,6 +61,18 @@ async methodName(param1, param2, options = {}) {
 ```javascript
 const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
+const getClient = require('../src/index.js');
+const {MockAgent, setGlobalDispatcher} = require('urllib');
+
+const baseUrl = "http://localhost:7001";
+const projectId = "dummyProjectId";
+
+const client = getClient({
+  "publicKey": "dummyPublicKey",
+  "privateKey": "dummyPrivateKey",
+  "baseUrl": baseUrl,
+  "projectId": projectId
+});
 
 describe("Mongo Atlas Api Client - ResourceName", () => {
   let mockAgent;

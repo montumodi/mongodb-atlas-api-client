@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "pretest": "npm run depcheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
-    "depcheck": "depcheck",
-    "test": "./node_modules/@hapi/lab/bin/lab -I '@@any-promise/REGISTRATION,Symbol(undici.globalDispatcher.1),File' ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json -r console -o stdout",
+    "depcheck": "depcheck --ignores=\"@babel/core,@babel/eslint-parser\"",
+    "test": "./node_modules/@hapi/lab/bin/lab -I '@@any-promise/REGISTRATION,Symbol(undici.globalDispatcher.1),Symbol(undici.globalDispatcher.2),File' ./test/ -v -S --assert @hapi/code --threshold 100 -p 1 -o test-results/result.json -r json -r console -o stdout",
     "lint": "./node_modules/.bin/eslint ./src --fix",
     "premajor": "npm run test",
     "major": "npm version major -m \"published to npm as v%s\" && git push --follow-tags && npm publish",
@@ -36,14 +36,17 @@
   },
   "homepage": "https://github.com/montumodi/mongodb-atlas-api-client#readme",
   "devDependencies": {
-    "@eslint/js": "^9.38.0",
+    "@babel/core": "^7.29.7",
+    "@babel/eslint-parser": "^7.29.7",
+    "@eslint/js": "^9.39.4",
     "@hapi/code": "^9.0.3",
+    "@hapi/eslint-plugin": "^6.0.0",
     "@hapi/lab": "^25.3.2",
     "depcheck": "^1.4.7",
-    "eslint": "^9.38.0",
-    "sinon": "^21.0.0"
+    "eslint": "^9.39.4",
+    "sinon": "^22.0.0"
   },
   "dependencies": {
-    "urllib": "^4.8.2"
+    "urllib": "^4.9.0"
   }
 }

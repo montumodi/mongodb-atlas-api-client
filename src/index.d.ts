@@ -92,6 +92,10 @@ export interface AtlasClientConfig {
      * Target Project ID in Atlas account
      */
     projectId?: String;
+    /**
+     * Custom headers to be sent with each request
+     */
+    headers?: Record<string, string>;
 }
 
 export interface AtlasClientOptions {

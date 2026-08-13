@@ -117,7 +117,7 @@ describe("AtlasUser Class", () => {
 
   describe("When getByName method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {}};
       await atlasUser.getByName("username", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/users/byName/username?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -125,7 +125,7 @@ describe("AtlasUser Class", () => {
 
   describe("When getById method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {}};
       await atlasUser.getById("userId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/users/userId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -133,7 +133,7 @@ describe("AtlasUser Class", () => {
 
   describe("When getAll method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {}};
       await atlasUser.getAll({"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });

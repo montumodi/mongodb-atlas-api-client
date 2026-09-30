@@ -3,6 +3,11 @@
   "version": "4.20.0",
   "description": "A mongodb atlas api client for nodejs.",
   "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "pretest": "npm run depcheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\"",
     "depcheck": "depcheck --ignores=\"@babel/core,@babel/eslint-parser\"",

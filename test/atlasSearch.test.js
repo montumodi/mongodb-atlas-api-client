@@ -1,10 +1,10 @@
-const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {describe, it, after, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
 const getClient = require('../src/index.js');
 const AtlasSearch = require('../src/atlasSearch.js');
 const HttpClient = require('../src/httpClient.js');
 const {stub} = require("sinon");
-const {MockAgent, setGlobalDispatcher} = require('urllib');
+const {Agent, MockAgent, setGlobalDispatcher} = require('urllib');
 
 const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
@@ -31,6 +31,10 @@ describe("Mongo Atlas Api Client - atlasSearch", () => {
 
   afterEach(() => {
     mockAgent.assertNoPendingInterceptors();
+  });
+
+  after(() => {
+    setGlobalDispatcher(new Agent());
   });
 
   describe("When atlasSearch is exported from index", () => {
@@ -134,6 +138,10 @@ describe("AtlasSearch Class", () => {
   const mockHttpClient = new HttpClient(mockRequest, "dummyPublicKey", "dummyPrivateKey");
 
   const atlasSearch = new AtlasSearch(mockHttpClient, "dummyBaseUrl", "dummyProjectId");
+
+  beforeEach(() => {
+    mockRequest.request.resetHistory();
+  });
 
   describe("When getAllAnalyzers method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {

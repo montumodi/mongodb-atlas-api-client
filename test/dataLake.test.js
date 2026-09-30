@@ -1,7 +1,7 @@
-const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {describe, it, after, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
 const getClient = require('../src/index.js');
-const {MockAgent, setGlobalDispatcher} = require('urllib');
+const {Agent, MockAgent, setGlobalDispatcher} = require('urllib');
 
 const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
@@ -28,6 +28,10 @@ describe("Mongo Atlas Api Client - dataLake", () => {
 
   afterEach(() => {
     mockAgent.assertNoPendingInterceptors();
+  });
+
+  after(() => {
+    setGlobalDispatcher(new Agent());
   });
 
   describe("When dataLake is exported from index", () => {
@@ -63,6 +67,11 @@ describe("Mongo Atlas Api Client - dataLake", () => {
         .reply(200, Buffer.from("Some test string", "utf8"), {"headers": {"accept": "application/gzip"}});
       const result = await client.dataLake.getLogsStream("mydataLakename", {"key1": "value1", "key2": "value2"});
       expect(result.pipe).to.exist();
+      const chunks = [];
+      for await (const chunk of result) {
+        chunks.push(chunk);
+      }
+      expect(Buffer.concat(chunks).toString()).to.equal("Some test string");
 
     });
   });

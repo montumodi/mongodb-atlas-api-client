@@ -26,6 +26,11 @@ describe("Helper Methods", () => {
       const result = getQueryStringFromOptions({"httpOptions": {"key": "value"}});
       expect(result).to.equal("");
     });
+
+    it("should exclude httpOptions while retaining query string parameters", async () => {
+      const result = getQueryStringFromOptions({"httpOptions": {"timeout": 1000}, "pretty": false});
+      expect(result).to.equal("pretty=false");
+    });
   });
 
   describe("When getQueryStringFromOptions is called without any parameters", () => {

@@ -1,7 +1,7 @@
-const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {describe, it, after, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
 const getClient = require('../src/index.js');
-const {MockAgent, setGlobalDispatcher} = require('urllib');
+const {Agent, MockAgent, setGlobalDispatcher} = require('urllib');
 
 const baseUrl = "http://localhost:7001";
 
@@ -26,6 +26,10 @@ describe("Mongo Atlas Api Client - Organization", () => {
 
   afterEach(() => {
     mockAgent.assertNoPendingInterceptors();
+  });
+
+  after(() => {
+    setGlobalDispatcher(new Agent());
   });
 
   describe("When organization is exported from index", () => {

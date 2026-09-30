@@ -1,7 +1,7 @@
-const {describe, it, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
+const {describe, it, after, afterEach, before, beforeEach} = exports.lab = require("@hapi/lab").script();
 const {expect} = require('@hapi/code');
 const getClient = require('../src/index.js');
-const {MockAgent, setGlobalDispatcher} = require('urllib');
+const {Agent, MockAgent, setGlobalDispatcher} = require('urllib');
 
 const baseUrl = "http://localhost:7001";
 const projectId = "dummyProjectId";
@@ -28,6 +28,10 @@ describe("Mongo Atlas Api Client - User", () => {
 
   afterEach(() => {
     mockAgent.assertNoPendingInterceptors();
+  });
+
+  after(() => {
+    setGlobalDispatcher(new Agent());
   });
 
   describe("When user is exported from index", () => {
@@ -63,6 +67,18 @@ describe("Mongo Atlas Api Client - User", () => {
       const result = await client.user.getAll({"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"projectWhitelist": "name"}]);
 
+    });
+  });
+
+  describe("When Atlas returns an error", () => {
+    it("should return the error response", async () => {
+      mockPool.intercept({
+        "path": `/groups/${projectId}/databaseUsers?`,
+        "method": "get"
+      })
+        .reply(500, {"error": "temporary failure"});
+      const result = await client.user.getAll();
+      expect(result).to.equal({"error": "temporary failure"});
     });
   });
 

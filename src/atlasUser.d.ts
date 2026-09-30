@@ -45,5 +45,4 @@ export interface AtlasUser {
     getByName(username: AtlasUserName, options?: AtlasClientOptions): Promise<GetAtlasUserResponse | AtlasError>;
     getAll(options?: AtlasClientOptions): Promise<GetAllAtlasUsersResponse | AtlasError>;
     create(atlasuser: CreateAtlasUserRequest, options?: AtlasClientOptions): Promise<CreateAtlasUserResponse | AtlasError>;
-    update(userId: AtlasUserId, atlasuser: UpdateAtlasUserRequest, options?: AtlasClientOptions): Promise<UpdateAtlasUserResponse | AtlasError>;
 }

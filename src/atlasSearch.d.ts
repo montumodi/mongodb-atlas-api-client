@@ -12,6 +12,4 @@ export interface AtlasSearch {
     delete(clusterName: ClusterName, indexId: IndexId, options?: AtlasClientOptions): Promise<any | AtlasError>;
     update(clusterName: ClusterName, indexId: IndexId, body: object, options?: AtlasClientOptions): Promise<any | AtlasError>;
     create(clusterName: ClusterName, body: object, options?: AtlasClientOptions): Promise<any | AtlasError>;
-    getAllAnalyzers(clusterName: ClusterName, options?: AtlasClientOptions): Promise<any | AtlasError>;
-    upsertAnalyzer(clusterName: ClusterName, body: object, options?: AtlasClientOptions): Promise<any | AtlasError>;
 }

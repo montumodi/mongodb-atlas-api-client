@@ -17,29 +17,6 @@ class AtlasSearch {
     return response;
   }
 
-  async getAllAnalyzers(clusterName, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, httpOptions)
-    );
-    return response;
-  }
-
-  async upsertAnalyzer(clusterName, body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, {
-        "method": "PUT",
-        "data": body,
-        "headers": {"Content-Type": "application/json"},
-        ...httpOptions
-      })
-    );
-    return response;
-  }
-
   async getAll(clusterName, databaseName, collectionName, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;

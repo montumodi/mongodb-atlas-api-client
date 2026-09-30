@@ -40,7 +40,6 @@ describe("Mongo Atlas Api Client - Project Accesslist", () => {
       expect(client.projectAccesslist.getAll).to.be.function();
       expect(client.projectAccesslist.create).to.be.function();
       expect(client.projectAccesslist.delete).to.be.function();
-      expect(client.projectAccesslist.update).to.be.function();
     });
   });
 
@@ -65,20 +64,6 @@ describe("Mongo Atlas Api Client - Project Accesslist", () => {
       })
         .reply(200, [{"projectAccesslist": "name"}]);
       const result = await client.projectAccesslist.getAll({"key1": "value1", "key2": "value2"});
-      expect(result).to.equal([{"projectAccesslist": "name"}]);
-
-    });
-  });
-
-  describe("When update is called with querystring parameters", () => {
-    it("should return response", async () => {
-      mockPool.intercept({
-        "path": `/groups/${projectId}/accessList?key1=value1&key2=value2`,
-        "method": "POST",
-        "data": {"body": "value"}
-      })
-        .reply(200, [{"projectAccesslist": "name"}]);
-      const result = await client.projectAccesslist.update({"body": "value"}, {"key1": "value1", "key2": "value2"});
       expect(result).to.equal([{"projectAccesslist": "name"}]);
 
     });

@@ -43,7 +43,6 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
       expect(client.atlasUser.getAll).to.be.function();
       expect(client.atlasUser.create).to.be.function();
       expect(client.atlasUser.getByName).to.be.function();
-      expect(client.atlasUser.update).to.be.function();
     });
   });
 
@@ -83,19 +82,6 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
     });
   });
 
-  describe("When update is called with querystring parameters", () => {
-    it("should return response", async () => {
-      mockPool.intercept({
-        "path": "/users/someId?key1=value1&key2=value2",
-        "method": "PATCH",
-        "data": {"body": "value"}
-      })
-        .reply(200, [{"user": "name"}]);
-      const result = await client.atlasUser.update("someId", {"body": "value"}, {"key1": "value1", "key2": "value2"});
-      expect(result).to.equal([{"user": "name"}]);
-    });
-  });
-
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({
@@ -125,7 +111,7 @@ describe("AtlasUser Class", () => {
 
   describe("When getByName method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await atlasUser.getByName("username", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/users/byName/username?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -133,7 +119,7 @@ describe("AtlasUser Class", () => {
 
   describe("When getById method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await atlasUser.getById("userId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/users/userId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -141,23 +127,9 @@ describe("AtlasUser Class", () => {
 
   describe("When getAll method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await atlasUser.getAll({"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
-    });
-  });
-
-  describe("When update method is called with querystring parameters and httpOptions", () => {
-    it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {
-        "digestAuth": "dummyPublicKey:dummyPrivateKey",
-        "dataType": "json",
-        "method": "PATCH",
-        "data": {"body": "text"},
-        "headers": {"Content-Type": "application/json"}
-      };
-      await atlasUser.update("userId", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
-      expect(mockRequest.request.calledWith("dummyBaseUrl/users/userId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
   });
 
@@ -168,7 +140,7 @@ describe("AtlasUser Class", () => {
         "dataType": "json",
         "method": "POST",
         "data": {"body": "text"},
-        "headers": {"Content-Type": "application/json"}
+        "headers": {"Accept": "application/vnd.atlas.2025-03-12+json", "Content-Type": "application/json"}
       };
       await atlasUser.create({"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/users?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();

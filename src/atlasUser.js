@@ -35,20 +35,6 @@ class AtlasUser {
     return response;
   }
 
-  async update(userId, body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/users/${userId}?${queryString}`, {
-        "method": "PATCH",
-        "data": body,
-        "headers": {"Content-Type": "application/json"},
-        ...httpOptions
-      })
-    );
-    return response;
-  }
-
   async create(body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;

@@ -11,6 +11,7 @@
   "scripts": {
     "pretest": "npm run depcheck && npm run typecheck && eslint --cache \"src/**/*.js\" \"test/**/*.js\" \"intergation/**/*.js\"",
     "depcheck": "depcheck --ignores=\"@babel/core,@babel/eslint-parser\"",
+    "docs": "typedoc",
     "generate:types": "openapi-typescript https://www.mongodb.com/docs/api/doc/atlas-admin-api-v2.json -o src/atlasAdminApiV2.d.ts",
     "test:integration": "node -r dotenv/config ./node_modules/@hapi/lab/bin/lab -I '@@any-promise/REGISTRATION,Symbol(undici.globalDispatcher.1),Symbol(undici.globalDispatcher.2),File' ./intergation/ -v --assert @hapi/code",
     "test:integration:file": "node -r dotenv/config ./node_modules/@hapi/lab/bin/lab -I '@@any-promise/REGISTRATION,Symbol(undici.globalDispatcher.1),Symbol(undici.globalDispatcher.2),File' -v --assert @hapi/code",
@@ -56,6 +57,7 @@
     "eslint": "^9.39.4",
     "openapi-typescript": "^7.13.0",
     "sinon": "^22.0.0",
+    "typedoc": "^0.28.14",
     "typescript": "^5.9.3"
   },
   "dependencies": {

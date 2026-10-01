@@ -49,6 +49,10 @@ This package exposes only operations with a corresponding route and HTTP verb in
 - Project access lists
 - Database users for the `admin` database
 
+Method signatures and types are published at
+[montumodi.github.io/mongodb-atlas-api-client](https://montumodi.github.io/mongodb-atlas-api-client/),
+generated from the TypeScript declarations. Run `npm run docs` to build them locally.
+
 Refer to the [official Atlas Administration API v2 documentation](https://www.mongodb.com/docs/api/doc/atlas-admin-api-v2/) for request and response schemas.
 
 ## Migrating from v4

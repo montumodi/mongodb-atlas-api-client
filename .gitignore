@@ -14,5 +14,6 @@ coverage.html
 .history
 .npmrc
 coverage
+docs
 .coveralls.yml
 test-results

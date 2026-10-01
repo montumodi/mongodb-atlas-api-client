@@ -12,30 +12,7 @@ class AtlasSearch {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, httpOptions)
-    );
-    return response;
-  }
-
-  async getAllAnalyzers(clusterName, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, httpOptions)
-    );
-    return response;
-  }
-
-  async upsertAnalyzer(clusterName, body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/analyzers?${queryString}`, {
-        "method": "PUT",
-        "data": body,
-        "headers": {"Content-Type": "application/json"},
-        ...httpOptions
-      })
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/search/indexes/${indexId}?${queryString}`, httpOptions)
     );
     return response;
   }
@@ -44,7 +21,7 @@ class AtlasSearch {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${databaseName}/${collectionName}?${queryString}`, httpOptions)
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/search/indexes/${databaseName}/${collectionName}?${queryString}`, httpOptions)
     );
     return response;
   }
@@ -52,7 +29,7 @@ class AtlasSearch {
   async delete(clusterName, indexId, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
-    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
+    await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/search/indexes/${indexId}?${queryString}`, {
       "method": "DELETE",
       ...httpOptions
     });
@@ -63,7 +40,7 @@ class AtlasSearch {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes/${indexId}?${queryString}`, {
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/search/indexes/${indexId}?${queryString}`, {
         "method": "PATCH",
         "data": body,
         "headers": {"Content-Type": "application/json"},
@@ -77,7 +54,7 @@ class AtlasSearch {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;
     const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/fts/indexes?${queryString}`, {
+      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/clusters/${clusterName}/search/indexes?${queryString}`, {
         "method": "POST",
         "data": body,
         "headers": {"Content-Type": "application/json"},

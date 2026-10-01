@@ -98,7 +98,7 @@ describe("Alert Class", () => {
 
   describe("When GetAll method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await alert.getAll({"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -106,7 +106,7 @@ describe("Alert Class", () => {
 
   describe("When Get method is called with querystring parameters and httpOptions", () => {
     it("Should send appropriate parameters to underlying request", async () => {
-      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json"};
+      const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await alert.get("alertId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts/alertId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
@@ -119,7 +119,7 @@ describe("Alert Class", () => {
         "dataType": "json",
         "method": "PATCH",
         "data": {"body": "text"},
-        "headers": {"Content-Type": "application/json"}};
+        "headers": {"Accept": "application/vnd.atlas.2025-03-12+json", "Content-Type": "application/json"}};
       await alert.acknowledge("alertId", {"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
       expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/alerts/alertId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });

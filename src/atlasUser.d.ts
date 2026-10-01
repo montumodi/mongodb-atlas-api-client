@@ -38,12 +38,17 @@ export interface CreateAtlasUserRequest {
     username: string;
 }
 export type CreateAtlasUserResponse = GetAtlasUserResponse;
-export interface UpdateAtlasUserRequest {}
+export interface UpdateAtlasUserRequest {
+    groupRoles?: string[];
+}
 export type UpdateAtlasUserResponse = GetAtlasUserResponse;
 export interface AtlasUser {
     getById(userId: AtlasUserId, options?: AtlasClientOptions): Promise<GetAtlasUserResponse | AtlasError>;
-    getByName(username: AtlasUserName, options?: AtlasClientOptions): Promise<GetAtlasUserResponse | AtlasError>;
+    getByName(username: AtlasUserName, options?: AtlasClientOptions): Promise<GetAllAtlasUsersResponse | AtlasError>;
     getAll(options?: AtlasClientOptions): Promise<GetAllAtlasUsersResponse | AtlasError>;
     create(atlasuser: CreateAtlasUserRequest, options?: AtlasClientOptions): Promise<CreateAtlasUserResponse | AtlasError>;
-    update(userId: AtlasUserId, atlasuser: UpdateAtlasUserRequest, options?: AtlasClientOptions): Promise<UpdateAtlasUserResponse | AtlasError>;
+    /** @deprecated Use addRole or removeRole for individual role changes. */
+    updateRoles(userId: AtlasUserId, roles: UpdateAtlasUserRequest, options?: AtlasClientOptions): Promise<UpdateAtlasUserResponse | AtlasError>;
+    addRole(userId: AtlasUserId, role: {groupRole: string}, options?: AtlasClientOptions): Promise<UpdateAtlasUserResponse | AtlasError>;
+    removeRole(userId: AtlasUserId, role: {groupRole: string}, options?: AtlasClientOptions): Promise<UpdateAtlasUserResponse | AtlasError>;
 }

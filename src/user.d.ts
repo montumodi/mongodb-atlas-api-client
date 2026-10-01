@@ -2,6 +2,7 @@ import {KeyValuePairDocumentArray, AtlasResultsResponse, AtlasClientOptions, Atl
 
 // UserClient
 export type Username = string;
+export type DatabaseName = "admin" | "$external";
 export interface GetUserResponse {
     databaseName: string;
     deleteAfterDate: string;
@@ -51,8 +52,11 @@ export interface UpdateUserRequest {
 export type UpdateUserResponse = GetUserResponse;
 export interface User {
     get(username: Username, options?: AtlasClientOptions): Promise<GetUserResponse | AtlasError>;
+    get(username: Username, databaseName?: DatabaseName, options?: AtlasClientOptions): Promise<GetUserResponse | AtlasError>;
     getAll(options?: AtlasClientOptions): Promise<GetAllUsersResponse | AtlasError>;
     delete(username: Username, options?: AtlasClientOptions): Promise<void | AtlasError>;
+    delete(username: Username, databaseName?: DatabaseName, options?: AtlasClientOptions): Promise<void | AtlasError>;
     create(user: CreateUserRequest, options?: AtlasClientOptions): Promise<CreateUserResponse | AtlasError>;
     update(username: Username, user: UpdateUserRequest, options?: AtlasClientOptions): Promise<UpdateUserResponse | AtlasError>;
+    update(username: Username, user: UpdateUserRequest, databaseName?: DatabaseName, options?: AtlasClientOptions): Promise<UpdateUserResponse | AtlasError>;
 }

@@ -6,10 +6,14 @@ node_modules
 .sass-cache
 .eslintcache
 npm-debug.log
+.env
+.env.*
+!.env.example
 coverage.html
 .vscode
 .history
 .npmrc
 coverage
+docs
 .coveralls.yml
 test-results

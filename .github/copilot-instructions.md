@@ -190,8 +190,10 @@ The `pretest` script automatically runs:
 - Authentication is handled by HttpClient class
 
 ### Common Parameters
-- `baseUrl`: MongoDB Atlas API base URL (e.g., `https://cloud.mongodb.com/api/atlas/v1.0`)
+- `baseUrl`: MongoDB Atlas Administration API v2 base URL (e.g., `https://cloud.mongodb.com/api/atlas/v2`)
 - `projectId`: MongoDB Atlas project/group ID
+- `apiVersion`: Optional Atlas API resource version date. The default is `2025-03-12`.
+- `onResponse`: Optional callback that receives response status and lifecycle headers such as `Deprecation` and `Sunset`.
 - `options`: Object that can contain:
   - Query parameters (e.g., `envelope`, `itemsPerPage`, `pretty`)
   - `httpOptions`: Additional options passed to urllib (e.g., `timeout`)
@@ -235,5 +237,11 @@ The `pretest` script automatically runs:
 - This library is production code used by many users - stability is critical
 - All changes must pass existing tests without modification
 - HTTP interactions are mocked in tests using urllib's MockAgent
-- The library uses MongoDB Atlas API v1.0
+- The library uses MongoDB Atlas Administration API v2
+- Prefer `client.cloudUser`; `client.atlasUser` remains a compatibility alias.
+- Cloud-user project membership uses `/groups/{groupId}/users` routes. `getByName()` is implemented as a username-filtered list and returns a paginated response.
+- Use `cloudUser.addRole()` and `cloudUser.removeRole()` for individual project-role changes. `updateRoles()` is retained for compatibility but maps to a deprecated API operation.
+- Atlas Search uses `/search/indexes` routes; do not add new `/fts/indexes` calls.
+- Database-user item methods default to the `admin` authentication database and accept `admin` or `$external` where supported.
+- Keep `package.json` and `package-lock.json` at the main-branch version until release. `npm run major` runs tests, bumps the version, creates the release commit and tag, pushes them, and publishes to npm.
 - Digest authentication is required for all API calls

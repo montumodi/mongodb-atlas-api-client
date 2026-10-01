@@ -6,10 +6,8 @@ import {CustomDbRole} from './customDbRole';
 import {Event} from './event';
 import {Organization} from './organization';
 import {Project} from './project';
-import {ProjectWhitelist} from './projectWhitelist';
 import {ProjectAccesslist} from './projectAccesslist';
 import {User} from './user';
-import {DataLake} from './dataLake';
 import {CloudProviderAccess} from './cloudProviderAccess';
 import {AtlasSearch} from './atlasSearch';
 
@@ -21,10 +19,8 @@ export * from './customDbRole';
 export * from './event';
 export * from './organization';
 export * from './project';
-export * from './projectWhitelist';
 export * from './projectAccesslist';
 export * from './user';
-export * from './dataLake'
 export * from './cloudProviderAccess';
 export * from './atlasSearch';
 
@@ -57,20 +53,25 @@ export interface AtlasError {
 
 export type ResponseOrError<T> = T | AtlasError;
 
+export interface AtlasResponseMetadata {
+    headers?: object;
+    status?: number;
+}
+
 // Atlas Client
 export interface AtlasClient {
     user: User;
     alert: Alert;
+    cloudUser: AtlasUser;
+    /** @deprecated Use cloudUser instead. */
     atlasUser: AtlasUser;
     organization: Organization;
     project: Project;
-    projectWhitelist: ProjectWhitelist;
     projectAccesslist: ProjectAccesslist;
     customDbRole: CustomDbRole;
     cluster: Cluster;
     cloudBackup: CloudBackup;
     event: Event;
-    dataLake: DataLake;
     cloudProviderAccess: CloudProviderAccess;
     atlasSearch: AtlasSearch
 }
@@ -92,6 +93,14 @@ export interface AtlasClientConfig {
      * Target Project ID in Atlas account
      */
     projectId?: String;
+    /**
+     * Atlas Administration API resource version date
+     */
+    apiVersion?: string;
+    /**
+     * Receives metadata for every Atlas API response, including lifecycle headers.
+     */
+    onResponse?: (metadata: AtlasResponseMetadata) => void;
 }
 
 export interface AtlasClientOptions {

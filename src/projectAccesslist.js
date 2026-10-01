@@ -36,20 +36,6 @@ class ProjectAccesslist {
     return true;
   }
 
-  async update(body, options = {}) {
-    const queryString = getQueryStringFromOptions(options);
-    const httpOptions = options.httpOptions;
-    const response = (
-      await this.client_.fetch(`${this.baseUrl_}/groups/${this.projectId_}/accessList?${queryString}`, {
-        "method": "POST",
-        "data": body,
-        "headers": {"Content-Type": "application/json"},
-        ...httpOptions
-      })
-    );
-    return response;
-  }
-
   async create(body, options = {}) {
     const queryString = getQueryStringFromOptions(options);
     const httpOptions = options.httpOptions;

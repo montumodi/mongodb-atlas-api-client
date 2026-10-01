@@ -33,5 +33,4 @@ export interface ProjectAccesslist {
     getAll(options?: AtlasClientOptions): Promise<GetAllAccesslistEntriesResponse | AtlasError>;
     delete(accesslistentryname: AccesslistEntryName, options?: AtlasClientOptions): Promise<void | AtlasError>;
     create(accesslistentry: CreateAccesslistEntryRequest, options?: AtlasClientOptions): Promise<CreateAccesslistEntryResponse | AtlasError>;
-    update(accesslistentryname: AccesslistEntryName, accesslistentry: UpdateAccesslistEntryRequest, options?: AtlasClientOptions): Promise<UpdateAccesslistEntryResponse | AtlasError>;
 }

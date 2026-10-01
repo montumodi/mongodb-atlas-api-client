@@ -15,6 +15,7 @@ describe("HttpClient", () => {
     expect(request.calledWith("https://example.test/resource", {
       "digestAuth": "publicKey:privateKey",
       "dataType": "json",
+      "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"},
       "timeout": 1000
     })).to.be.true();
   });
@@ -35,7 +36,7 @@ describe("HttpClient", () => {
   it("should return the streaming response", async () => {
     const stream = Readable.from(["stream data"]);
     const request = stub().resolves({"res": stream});
-    const client = new HttpClient({request}, "publicKey", "privateKey");
+    const client = new HttpClient({request}, "publicKey", "privateKey", "2025-03-12");
     const response = await client.fetchStream("https://example.test/resource", {"gzip": true});
     const chunks = [];
     for await (const chunk of response) {
@@ -45,7 +46,37 @@ describe("HttpClient", () => {
     expect(request.calledWith("https://example.test/resource", {
       "digestAuth": "publicKey:privateKey",
       "streaming": true,
+      "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"},
       "gzip": true
+    })).to.be.true();
+  });
+
+  it("should allow callers to select a resource version", async () => {
+    const request = stub().resolves({"data": {}});
+    const client = new HttpClient({request}, "publicKey", "privateKey", "2026-01-01");
+    await client.fetch("https://example.test/resource", {"headers": {"X-Request-Id": "requestId"}});
+    expect(request.calledWith("https://example.test/resource", {
+      "digestAuth": "publicKey:privateKey",
+      "dataType": "json",
+      "headers": {
+        "Accept": "application/vnd.atlas.2026-01-01+json",
+        "X-Request-Id": "requestId"
+      }
+    })).to.be.true();
+  });
+
+  it("should provide response metadata to the configured callback", async () => {
+    const onResponse = stub();
+    const request = stub().resolves({
+      "data": {},
+      "headers": {"deprecation": "Wed, 1 Feb 2023 00:00:00 GMT", "sunset": "Sun, 1 Jun 2025 00:00:00 GMT"},
+      "status": 200
+    });
+    const client = new HttpClient({request}, "publicKey", "privateKey", "2025-03-12", onResponse);
+    await client.fetch("https://example.test/resource");
+    expect(onResponse.calledWith({
+      "headers": {"deprecation": "Wed, 1 Feb 2023 00:00:00 GMT", "sunset": "Sun, 1 Jun 2025 00:00:00 GMT"},
+      "status": 200
     })).to.be.true();
   });
 });

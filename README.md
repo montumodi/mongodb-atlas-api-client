@@ -32,6 +32,22 @@ The client sends the required versioned API `Accept` header for resource version
 
 Use `onResponse` to observe Atlas response metadata, including `Deprecation` and `Sunset` lifecycle headers.
 
+### Resource Versions
+
+The client uses the Atlas Administration API v2 base URL and sends the selected resource version in the `Accept` header. It defaults to `2025-03-12`, but you can provide another supported resource version explicitly:
+
+```js
+const client = getClient({
+  "publicKey": process.env.ATLAS_PUBLIC_KEY,
+  "privateKey": process.env.ATLAS_PRIVATE_KEY,
+  "baseUrl": "https://cloud.mongodb.com/api/atlas/v2",
+  "projectId": "your-project-id",
+  "apiVersion": "2025-02-19"
+});
+```
+
+Review the [Atlas API changelog](https://www.mongodb.com/docs/api/doc/atlas-admin-api-v2/whats-new/) and the version-specific API documentation before selecting a resource version. The `baseUrl` must end in `/api/atlas/v2`; v5 does not support `/api/atlas/v1.0` URLs or automatically translate v1 requests to v2.
+
 ## API Coverage
 
 This package exposes only operations with a corresponding route and HTTP verb in the official Atlas Administration API v2 specification:

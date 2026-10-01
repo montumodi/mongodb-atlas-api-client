@@ -48,7 +48,8 @@ function getMongodbAtlasApiClient(options) {
   functions.projectAccesslist = getFunctions(projectAccesslist);
   functions.project = getFunctions(project);
   functions.organization = getFunctions(organization);
-  functions.atlasUser = getFunctions(atlasUser);
+  functions.cloudUser = getFunctions(atlasUser);
+  functions.atlasUser = functions.cloudUser;
   functions.event = getFunctions(event);
   functions.alert = getFunctions(alert);
   functions.cloudProviderAccess = getFunctions(cloudProviderAccess);

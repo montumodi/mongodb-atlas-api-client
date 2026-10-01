@@ -43,13 +43,19 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
       expect(client.atlasUser.getAll).to.be.function();
       expect(client.atlasUser.create).to.be.function();
       expect(client.atlasUser.getByName).to.be.function();
+      expect(client.atlasUser.updateRoles).to.be.function();
+    });
+
+    it("should export cloudUser as the preferred name", async () => {
+      expect(client.cloudUser).to.equal(client.atlasUser);
+      expect(client.cloudUser.getById).to.be.function();
     });
   });
 
   describe("When getByName is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({
-        "path": "/users/byName/myuser?key1=value1&key2=value2",
+        "path": `/groups/${projectId}/users?key1=value1&key2=value2&username=myuser`,
         "method": "get"
       })
         .reply(200, {"user": "name"});
@@ -61,7 +67,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
   describe("When getById is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({
-        "path": "/users/someid?key1=value1&key2=value2",
+        "path": `/groups/${projectId}/users/someid?key1=value1&key2=value2`,
         "method": "get"
       })
         .reply(200, {"user": "name"});
@@ -85,7 +91,7 @@ describe("Mongo Atlas Api Client - Atlas User", () => {
   describe("When create is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({
-        "path": "/users?key1=value1&key2=value2",
+        "path": `/groups/${projectId}/users?key1=value1&key2=value2`,
         "method": "POST",
         "data": {"body": "value"}
       })
@@ -113,7 +119,7 @@ describe("AtlasUser Class", () => {
     it("Should send appropriate parameters to underlying request", async () => {
       const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await atlasUser.getByName("username", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
-      expect(mockRequest.request.calledWith("dummyBaseUrl/users/byName/username?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users?queryStringParam1=value1&username=username", {...requestParams, "options1": "value1"})).to.be.true();
     });
   });
 
@@ -121,7 +127,7 @@ describe("AtlasUser Class", () => {
     it("Should send appropriate parameters to underlying request", async () => {
       const requestParams = {"digestAuth": "dummyPublicKey:dummyPrivateKey", "dataType": "json", "headers": {"Accept": "application/vnd.atlas.2025-03-12+json"}};
       await atlasUser.getById("userId", {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
-      expect(mockRequest.request.calledWith("dummyBaseUrl/users/userId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users/userId?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
     });
   });
 
@@ -143,7 +149,37 @@ describe("AtlasUser Class", () => {
         "headers": {"Accept": "application/vnd.atlas.2025-03-12+json", "Content-Type": "application/json"}
       };
       await atlasUser.create({"body": "text"}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
-      expect(mockRequest.request.calledWith("dummyBaseUrl/users?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When updateRoles method is called with querystring parameters and httpOptions", () => {
+    it("Should send appropriate parameters to underlying request", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "PUT",
+        "data": {"groupRoles": ["GROUP_OWNER"]},
+        "headers": {"Accept": "application/vnd.atlas.2025-03-12+json", "Content-Type": "application/json"}
+      };
+      await atlasUser.updateRoles("userId", {"groupRoles": ["GROUP_OWNER"]}, {"queryStringParam1": "value1", "httpOptions": {"options1": "value1"}});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users/userId/roles?queryStringParam1=value1", {...requestParams, "options1": "value1"})).to.be.true();
+    });
+  });
+
+  describe("When role action methods are called", () => {
+    it("should add and remove a project role", async () => {
+      const requestParams = {
+        "digestAuth": "dummyPublicKey:dummyPrivateKey",
+        "dataType": "json",
+        "method": "POST",
+        "data": {"groupRole": "GROUP_OWNER"},
+        "headers": {"Accept": "application/vnd.atlas.2025-03-12+json", "Content-Type": "application/json"}
+      };
+      await atlasUser.addRole("userId", {"groupRole": "GROUP_OWNER"});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users/userId:addRole?", requestParams)).to.be.true();
+      await atlasUser.removeRole("userId", {"groupRole": "GROUP_OWNER"});
+      expect(mockRequest.request.calledWith("dummyBaseUrl/groups/dummyProjectId/users/userId:removeRole?", requestParams)).to.be.true();
     });
   });
 

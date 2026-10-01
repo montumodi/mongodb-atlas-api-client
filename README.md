@@ -38,7 +38,7 @@ This package exposes only operations with a corresponding route and HTTP verb in
 
 - Alerts
 - Atlas Search indexes
-- Atlas users: create and read
+- Cloud users: create and read
 - Cloud backup
 - Cloud provider access
 - Clusters
@@ -55,16 +55,50 @@ generated from the TypeScript declarations. Run `npm run docs` to build them loc
 
 Refer to the [official Atlas Administration API v2 documentation](https://www.mongodb.com/docs/api/doc/atlas-admin-api-v2/) for request and response schemas.
 
-## Migrating from v4
+## Upgrade From v4
 
-Version 5 targets `/api/atlas/v2` and removes v1-only public APIs that have no equivalent operation in the official v2 specification:
+Version 5 is a breaking release. It targets the Atlas Administration API v2, so update the package and client configuration together:
 
-- `projectWhitelist`: use `projectAccesslist`.
-- `dataLake`: no Atlas Administration API v2 operation is available.
-- `atlasSearch.getAllAnalyzers` and `atlasSearch.upsertAnalyzer`.
-- `atlasUser.update`.
+```sh
+npm install mongodb-atlas-api-client@^5
+```
 
-Database-user item methods retain the v4 `admin` database behavior. The Atlas v2 API also supports other authentication databases through the `{databaseName}` path parameter; broader support will be added as an explicit API rather than changing existing method signatures.
+```js
+const client = getClient({
+  "publicKey": process.env.ATLAS_PUBLIC_KEY,
+  "privateKey": process.env.ATLAS_PRIVATE_KEY,
+  "baseUrl": "https://cloud.mongodb.com/api/atlas/v2",
+  "projectId": "your-project-id"
+});
+```
+
+The default resource version is `2025-03-12`. You can select another supported version with `apiVersion`, but review the [Atlas API changelog](https://www.mongodb.com/docs/api/doc/atlas-admin-api-v2/whats-new/) and test the affected requests before changing it.
+
+### Renamed and removed APIs
+
+Make these source changes when upgrading:
+
+| v4 | v5 |
+| --- | --- |
+| `client.projectWhitelist` | `client.projectAccesslist` |
+| `client.projectWhitelist.update(body)` | `client.projectAccesslist.create(body)` |
+
+The following v4 APIs were removed because Atlas Administration API v2 has no corresponding operation in this client:
+
+- `client.dataLake`
+- `client.atlasSearch.getAllAnalyzers()`
+- `client.atlasSearch.upsertAnalyzer()`
+- `client.atlasUser.update()` (v1 profile updates; use `client.cloudUser.updateRoles()` for v2 project-role updates)
+
+Cloud-user methods are available under `client.cloudUser`. The older `client.atlasUser` name remains as a compatibility alias.
+
+The old `projectWhitelist` TypeScript types were also replaced by `projectAccesslist` types. Database-user item methods use `admin` by default and accept an optional database name (`admin` or `$external`):
+
+```js
+await client.user.get("username", "$external");
+await client.user.update("username", body, "$external");
+await client.user.delete("username", "$external");
+```
 
 ## Development
 

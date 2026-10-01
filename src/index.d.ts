@@ -62,6 +62,8 @@ export interface AtlasResponseMetadata {
 export interface AtlasClient {
     user: User;
     alert: Alert;
+    cloudUser: AtlasUser;
+    /** @deprecated Use cloudUser instead. */
     atlasUser: AtlasUser;
     organization: Organization;
     project: Project;

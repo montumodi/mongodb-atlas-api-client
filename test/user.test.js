@@ -57,6 +57,18 @@ describe("Mongo Atlas Api Client - User", () => {
     });
   });
 
+  describe("When get is called for an external database user", () => {
+    it("should use the requested database name", async () => {
+      mockPool.intercept({
+        "path": `/groups/${projectId}/databaseUsers/$external/myUsername?`,
+        "method": "get"
+      })
+        .reply(200, {"username": "myUsername"});
+      const result = await client.user.get("myUsername", "$external");
+      expect(result).to.equal({"username": "myUsername"});
+    });
+  });
+
   describe("When getAll is called with querystring parameters", () => {
     it("should return response", async () => {
       mockPool.intercept({

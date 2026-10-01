@@ -13,9 +13,11 @@ describe("Atlas user integration", () => {
     const listedUser = listedUsers.results[0];
     const userById = await client.atlasUser.getById(listedUser.id);
     const userByUsername = await client.atlasUser.getByName(listedUser.username);
+    expect(userByUsername.results).to.be.array();
+    expect(userByUsername.results.length).to.be.above(0);
 
     expect(userById.id).to.equal(listedUser.id);
-    expect(userByUsername.id).to.equal(listedUser.id);
-    expect(userByUsername.username).to.equal(listedUser.username);
+    expect(userByUsername.results[0].id).to.equal(listedUser.id);
+    expect(userByUsername.results[0].username).to.equal(listedUser.username);
   });
 });
